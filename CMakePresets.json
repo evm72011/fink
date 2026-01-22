@@ -1,0 +1,69 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "win-msvc",
+      "displayName": "Windows MSVC (VS 2022) x64",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build/win",
+      "architecture": "x64",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/win/conan_toolchain.cmake",
+        "VENV_DIR":"${sourceDir}/.venv/win",
+        "ENABLE_CLANG_TIDY": "ON"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "intelliSenseMode": "windows-msvc-x64"
+        }
+      }
+    },
+    {
+      "name": "wsl-ninja-debug",
+      "displayName": "WSL Ninja Debug",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/wsl",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/wsl/conan_toolchain.cmake",
+        "VENV_DIR":"${sourceDir}/.venv/wsl",
+        "ENABLE_CLANG_TIDY": "ON",
+        "ENABLE_CLANG_FORMAT": "ON"
+      }
+    },
+    {
+      "name": "wsl-ninja-release",
+      "displayName": "WSL Ninja Release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/wsl",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/wsl/conan_toolchain.cmake",
+        "VENV_DIR":"${sourceDir}/.venv/wsl",
+        "ENABLE_CLANG_TIDY": "ON",
+        "ENABLE_CLANG_FORMAT": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "win-msvc-debug",
+      "configurePreset": "win-msvc",
+      "configuration": "Debug"
+    },
+    {
+      "name": "win-msvc-release",
+      "configurePreset": "win-msvc",
+      "configuration": "Release"
+    },
+
+    {
+      "name": "wsl-debug",
+      "configurePreset": "wsl-ninja-debug"
+    },
+    {
+      "name": "wsl-release",
+      "configurePreset": "wsl-ninja-release"
+    }
+  ]
+}

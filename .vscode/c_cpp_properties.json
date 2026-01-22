@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "name": "windows-msvc-x64",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "compilerPath": "C:/Program Files/Microsoft Visual Studio/18/Community/VC/Tools/MSVC/14.50.35717/bin/Hostx64/x64/cl.exe",
+      "intelliSenseMode": "windows-msvc-x64",
+      "cppStandard": "c++23",
+      "cStandard": "c17"
+    },
+    {
+      "name": "wsl-gcc-x64",
+      "compilerPath": "/usr/bin/g++",
+      "intelliSenseMode": "linux-gcc-x64",
+      "cppStandard": "c++23",
+      "cStandard": "c17",
+      "includePath": ["${workspaceFolder}/**"]
+    }
+  ],
+  "version": 4
+}

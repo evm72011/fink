@@ -1,0 +1,14 @@
+rm -rf build-win
+cmake -S . -B build-win
+cmake --build build-win
+./build-win/apps/main/main
+
+"C:\Program Files\Microsoft Visual Studio\18\Community\VC\Auxiliary\Build\vcvars64.bat"
+tree -L 4 -I build
+
+WIN:
+.\scripts\win\bootstrap-venv.ps1
+.\scripts\win\conan-install.ps1
+cmake --preset win-msvc
+cmake --build --preset win-msvc-debug
+
