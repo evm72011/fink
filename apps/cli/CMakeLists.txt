@@ -3,7 +3,13 @@ set(EXE_SOURCES "src/main.cpp")
 
 add_executable(${EXE_NAME} ${EXE_SOURCES})
 
-target_link_libraries(${EXE_NAME} PRIVATE fink-instruments fink-math)
+target_link_libraries(
+    ${EXE_NAME}
+    PRIVATE ${INSTRUMENTS_LIB_NAME}
+            ${MATH_LIB_NAME}
+            ${MODELS_LIB_NAME}
+            ${PRICERS_LIB_NAME}
+            ${RNG_LIB_NAME})
 
 target_set_warnings(
     TARGET

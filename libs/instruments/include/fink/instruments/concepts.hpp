@@ -21,11 +21,9 @@ namespace fink::instruments
  * - noexcept is required to keep instrument contracts non-throwing.
  */
 template <class P>
-concept payoff_like = 
-    std::is_object_v<P> && 
-    requires(const P &p, double spot) {
-        { p(spot) } noexcept -> std::convertible_to<double>;
-    };
+concept payoff_like = std::is_object_v<P> && requires(const P &p, double spot) {
+    { p(spot) } noexcept -> std::convertible_to<double>;
+};
 
 /**
  * @brief Concept for option contract types.
@@ -44,14 +42,13 @@ concept payoff_like =
  *   (e.g. expiry > 0).
  */
 template <class O>
-concept option_like = 
-    requires(const O &o) {
-        { o.payoff } noexcept;
-        requires payoff_like<std::remove_cvref_t<decltype(o.payoff)>>;
+concept option_like = requires(const O &o) {
+    { o.payoff } noexcept;
+    requires payoff_like<std::remove_cvref_t<decltype(o.payoff)>>;
 
-        { o.expiry } noexcept -> std::convertible_to<double>;
-        { O::style } -> std::convertible_to<exercise_style>;
-    };
+    { o.expiry } noexcept -> std::convertible_to<double>;
+    { O::style } -> std::convertible_to<exercise_style>;
+};
 
 /**
  * @brief Concept for European-style option contracts.

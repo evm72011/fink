@@ -1,6 +1,13 @@
-#include "iostream"
+#include <iostream>
+#include <random>
+
 #include <fink/instruments/aliases.hpp>
 #include <fink/math/discount.hpp>
+
+#include <fink/models/gbm.hpp>
+
+#include <fink/rng/normal_rng.hpp>
+#include <fink/rng/pcg32.hpp>
 
 int main()
 {
@@ -18,4 +25,15 @@ int main()
     std::cout << c.payoff(110.0) << '\n';
 
     std::cout << 100.0 * fink::math::discount_continuous(.05, 1) << '\n';
+
+    using namespace fink::models;
+    gbm_params params{.s0{100.0}, .r{0.05}, .sigma{0.1}};
+
+    std::random_device rd;
+    fink::rng::pcg32 r(rd());
+    fink::rng::normal_rng normal_rng(r);
+    auto z = normal_rng();
+
+    auto price = gbm_terminal_price(params, 1.0, z);
+    std::cout << z << " : " << price << '\n';
 }

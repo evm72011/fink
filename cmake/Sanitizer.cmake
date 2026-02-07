@@ -2,7 +2,7 @@ if(NOT ENABLE_SANITIZE_ADDR
    AND NOT ENABLE_SANITIZE_UNDEF
    AND NOT ENABLE_SANITIZE_LEAK
    AND NOT ENABLE_SANITIZE_THREAD)
-   message(STATUS "Sanitizers are deactivated")
+    message(STATUS "Sanitizers are deactivated")
 endif()
 
 function(add_sanitizer_flags)

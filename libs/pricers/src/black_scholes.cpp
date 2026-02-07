@@ -7,11 +7,13 @@ namespace fink::pricers
 
 double bs_call(double s0, double k, double r, double sigma, double T) noexcept
 {
-    if (T <= 0.0) {
+    if (T <= 0.0)
+    {
         return std::max(s0 - k, 0.0);
     }
 
-    if (sigma <= 0.0) {
+    if (sigma <= 0.0)
+    {
         // Deterministic terminal under risk-neutral: ST = S0 * exp(rT)
         // Call = exp(-rT) * max(ST - K, 0) = max(S0 - K*exp(-rT), 0)
         return std::max(s0 - k * std::exp(-r * T), 0.0);
