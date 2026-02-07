@@ -2,7 +2,6 @@
   "cmake.buildDirectory": "${workspaceFolder}/build/win",
   "cmake.useCMakePresets": "always",
   "cmake.configureOnEdit": true,
-  "makefile.diagnostics": false,
   "C_Cpp.default.compileCommands": "${workspaceFolder}/build/wsl/compile_commands.json",
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
