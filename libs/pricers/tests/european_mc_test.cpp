@@ -5,7 +5,7 @@
 using fink::instruments::call_payoff;
 using fink::instruments::european_call;
 using fink::models::gbm_params;
-using fink::pricers::bs_call;
+using fink::pricers::bs_european_call;
 using fink::pricers::mc_config;
 using fink::pricers::price_european_call_mc;
 
@@ -20,7 +20,7 @@ TEST(Pricers_European_MC, ConvergesToBlackScholes)
 
     const auto mc = price_european_call_mc(opt, model, cfg);
     const double bs =
-        bs_call(model.s0, 100.0, model.r, model.sigma, opt.expiry);
+        bs_european_call(model.s0, 100.0, model.r, model.sigma, opt.expiry);
 
     // 3-sigma rule
     EXPECT_NEAR(mc.price, bs, 3.0 * mc.stderr);
