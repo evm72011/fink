@@ -2,7 +2,8 @@ find_package(GTest CONFIG REQUIRED)
 
 set(TEST_NAME pricers_test)
 
-add_executable(${TEST_NAME} black_scholes_test.cpp european_mc_test.cpp)
+add_executable(${TEST_NAME} black_scholes_call_test.cpp
+                            black_scholes_put_test.cpp european_mc_test.cpp)
 
 target_link_libraries(${TEST_NAME} PRIVATE ${LIB_NAME} GTest::gtest
                                            GTest::gtest_main)

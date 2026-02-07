@@ -11,7 +11,7 @@ constexpr double eps_tight = 1e-12;
 constexpr double eps_ref = 1e-4;
 } // namespace
 
-TEST(Pricers_BlackScholes, AtTheMoneyReferenceValue)
+TEST(Pricers_BlackScholes_Call, AtTheMoneyReferenceValue)
 {
     // Common reference case:
     // S0=100, K=100, r=5%, sigma=20%, T=1
@@ -20,7 +20,7 @@ TEST(Pricers_BlackScholes, AtTheMoneyReferenceValue)
     EXPECT_NEAR(price, 10.4506, eps_ref);
 }
 
-TEST(Pricers_BlackScholes, ZeroMaturityEqualsIntrinsicValue)
+TEST(Pricers_BlackScholes_Call, ZeroMaturityEqualsIntrinsicValue)
 {
     // At T=0, European call equals intrinsic value: max(S0-K,0)
     EXPECT_DOUBLE_EQ(bs_european_call(120.0, 100.0, 0.05, 0.2, 0.0), 20.0);
@@ -28,7 +28,7 @@ TEST(Pricers_BlackScholes, ZeroMaturityEqualsIntrinsicValue)
     EXPECT_DOUBLE_EQ(bs_european_call(100.0, 100.0, 0.05, 0.2, 0.0), 0.0);
 }
 
-TEST(Pricers_BlackScholes, ZeroVolatilityBecomesDiscountedForwardIntrinsic)
+TEST(Pricers_BlackScholes_Call, ZeroVolatilityBecomesDiscountedForwardIntrinsic)
 {
     // If sigma=0, ST is deterministic under risk-neutral:
     // ST = S0 * exp(rT). Then:
@@ -44,7 +44,7 @@ TEST(Pricers_BlackScholes, ZeroVolatilityBecomesDiscountedForwardIntrinsic)
     EXPECT_NEAR(price, expected, eps_tight);
 }
 
-TEST(Pricers_BlackScholes, DeepInTheMoneyApproachesForwardIntrinsic)
+TEST(Pricers_BlackScholes_Call, DeepInTheMoneyApproachesForwardIntrinsic)
 {
     // For very large S0 relative to K, call price approaches:
     // C ≈ S0 - K*exp(-rT)
@@ -61,7 +61,7 @@ TEST(Pricers_BlackScholes, DeepInTheMoneyApproachesForwardIntrinsic)
     EXPECT_NEAR(price, approx, 1e-3);
 }
 
-TEST(Pricers_BlackScholes, MonotonicInSpot)
+TEST(Pricers_BlackScholes_Call, MonotonicInSpot)
 {
     const double k = 100.0;
     const double r = 0.05;
@@ -76,7 +76,7 @@ TEST(Pricers_BlackScholes, MonotonicInSpot)
     EXPECT_LT(c2, c3);
 }
 
-TEST(Pricers_BlackScholes, MonotonicInVolatility)
+TEST(Pricers_BlackScholes_Call, MonotonicInVolatility)
 {
     const double s0 = 100.0;
     const double k = 100.0;
@@ -91,7 +91,7 @@ TEST(Pricers_BlackScholes, MonotonicInVolatility)
     EXPECT_LT(mid, high);
 }
 
-TEST(Pricers_BlackScholes, MonotonicInMaturity)
+TEST(Pricers_BlackScholes_Call, MonotonicInMaturity)
 {
     // Call price should be non-decreasing in T (no dividends).
     const double s0 = 100.0;
@@ -107,7 +107,7 @@ TEST(Pricers_BlackScholes, MonotonicInMaturity)
     EXPECT_LE(c_mid, c_long);
 }
 
-TEST(Pricers_BlackScholes, NonNegativeAndUpperBoundedBySpot)
+TEST(Pricers_BlackScholes_Call, NonNegativeAndUpperBoundedBySpot)
 {
     const double s0 = 100.0;
     const double k = 80.0;
