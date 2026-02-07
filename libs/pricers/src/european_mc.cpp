@@ -24,7 +24,7 @@ mc_result price_european_call_mc(const fink::instruments::european_call &opt,
         const double ST =
             fink::models::gbm_terminal_price(model, opt.expiry, Z);
         const double payoff = opt.payoff(ST);
-        sum += payoff;
+        sum += payoff;      // TODO Welford
         sum2 += payoff * payoff;
     }
 
