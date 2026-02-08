@@ -7,11 +7,11 @@
 #include <cstddef>
 #include <cstdint>
 
+#include <fink/instruments/concepts.hpp>
+#include <fink/math/online_stats.hpp>
+#include <fink/models/gbm.hpp>
 #include <fink/rng/normal_rng.hpp>
 #include <fink/rng/pcg32.hpp>
-#include <fink/math/online_stats.hpp>
-#include <fink/instruments/concepts.hpp>
-#include <fink/models/gbm.hpp>
 
 namespace fink::pricers
 {
@@ -71,9 +71,10 @@ struct mc_result
  *   analytic Black–Scholes pricing.
  */
 template <fink::instruments::european_option_like Option>
-[[nodiscard]] inline mc_result price_european_mc(const Option& opt,
-                                                 const fink::models::gbm_params& model,
-                                                 const mc_config& cfg) noexcept
+[[nodiscard]] inline mc_result price_european_mc(
+    const Option &opt,
+    const fink::models::gbm_params &model,
+    const mc_config &cfg) noexcept
 {
     fink::rng::pcg32 urng(cfg.seed);
     fink::rng::normal_rng n(urng);
@@ -82,7 +83,8 @@ template <fink::instruments::european_option_like Option>
     for (std::size_t i = 0; i < cfg.paths; ++i)
     {
         const double Z = n();
-        const double ST = fink::models::gbm_terminal_price(model, opt.expiry, Z);
+        const double ST =
+            fink::models::gbm_terminal_price(model, opt.expiry, Z);
         const double payoff = opt.payoff(ST);
         stats.add(payoff);
     }
