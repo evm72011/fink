@@ -1,9 +1,9 @@
+#include <chrono>
 #include <format>
 #include <iomanip>
 #include <iostream>
 #include <random>
 #include <string_view>
-#include <chrono>
 
 #include <fink/instruments/aliases.hpp>
 #include <fink/models/gbm.hpp>
@@ -30,8 +30,8 @@ std::string format_paths(size_t n)
     return std::to_string(n);
 }
 
-void run_mc_benchmark(const european_call& option,
-                      const fink::models::gbm_params& model,
+void run_mc_benchmark(const european_call &option,
+                      const fink::models::gbm_params &model,
                       size_t paths)
 {
     using clock = std::chrono::steady_clock;

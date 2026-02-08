@@ -41,8 +41,9 @@ namespace fink::pricers
  * - Assumes no dividends.
  * - Useful as an analytic benchmark for Monte Carlo pricers.
  */
-[[nodiscard]] double bs_european_call(const instruments::european_call &opt,
-                                      const models::gbm_params &params) noexcept;
+[[nodiscard]] double bs_european_call(
+    const instruments::european_call &opt,
+    const models::gbm_params &params) noexcept;
 
 /**
  * @brief Black–Scholes price of a European put option.
