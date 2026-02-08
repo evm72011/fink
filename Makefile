@@ -37,7 +37,7 @@ build:
 	printf "$(GREEN)Build OK$(RESET)\n"
 
 run:
-	@./$(BUILD_DIR)/apps/cli/fink-cli; rc=$$?; \
+	@./$(BUILD_DIR)/apps/examples/european_call/example-european-call; rc=$$?; \
 	  printf "$(GRAY)■$(RESET)\n"; \
 	  if [ $$rc -ne 0 ]; then printf "$(RED)ExitCode=$$rc$(RESET)\n"; \
 	  else printf "$(GRAY)ExitCode=$$rc$(RESET)\n"; fi

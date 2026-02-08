@@ -1,7 +1,11 @@
 {
-  "cmake.buildDirectory": "${workspaceFolder}/build/win",
+  "cmake.buildDirectory": "${workspaceFolder}/build/wsl",
   "cmake.useCMakePresets": "always",
-  "cmake.configureOnEdit": true,
+  "cmake.configureOnEdit": false,
+  "cmake.configureOnOpen": false,
+  "makefile.configureOnOpen": false,
+  "C_Cpp.errorSquiggles": "enabled",
+  "C_Cpp.intelliSenseEngine": "default",
   "C_Cpp.default.compileCommands": "${workspaceFolder}/build/wsl/compile_commands.json",
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
@@ -59,6 +63,5 @@
   "C_Cpp_Runner.useLeakSanitizer": false,
   "C_Cpp_Runner.showCompilationTime": false,
   "C_Cpp_Runner.useLinkTimeOptimization": false,
-  "C_Cpp_Runner.msvcSecureNoWarnings": false,
-  "makefile.configureOnOpen": false
+  "C_Cpp_Runner.msvcSecureNoWarnings": false
 }

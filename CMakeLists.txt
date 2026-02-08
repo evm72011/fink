@@ -16,6 +16,7 @@ set(VENV_DIR
 
 set(INSTRUMENTS_LIB_NAME "fink-instruments")
 set(MATH_LIB_NAME "fink-math")
+set(MC_LIB_NAME "fink-mc")
 set(MODELS_LIB_NAME "fink-models")
 set(PRICERS_LIB_NAME "fink-pricers")
 set(RNG_LIB_NAME "fink-rng")

@@ -1,6 +1,6 @@
 find_package(GTest CONFIG REQUIRED)
 
-set(TEST_NAME pricers_test)
+set(TEST_NAME ${LIB_NAME}_test)
 
 add_executable(${TEST_NAME} black_scholes_call_test.cpp
                             black_scholes_put_test.cpp european_mc_test.cpp)

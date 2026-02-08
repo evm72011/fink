@@ -1,6 +1,6 @@
 find_package(GTest CONFIG REQUIRED)
 
-set(TEST_NAME stats_test)
+set(TEST_NAME ${LIB_NAME}_test)
 
 add_executable(
     ${TEST_NAME}

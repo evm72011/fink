@@ -87,3 +87,5 @@ WSL:
 ```bash
 make venv
 make all
+
+#tree -I "build|docs"

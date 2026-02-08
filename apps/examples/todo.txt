@@ -1,7 +1,0 @@
-│   └── examples/
-│       ├── CMakeLists.txt
-│       └── src/
-│           ├── european_call.cpp
-│           │   # Пример использования API: создаём instrument+model, считаем цену.
-│           └── asian_call.cpp
-│               # Path-dependent: показывает, что нужен путь, а не только S_T.
