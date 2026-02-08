@@ -2,7 +2,7 @@ find_package(GTest CONFIG REQUIRED)
 
 set(TEST_NAME ${LIB_NAME}_test)
 
-add_executable(${TEST_NAME} aliases_test.cpp options_test.cpp payoff_test.cpp)
+add_executable(${TEST_NAME} test_aliases.cpp test_options.cpp test_payoff.cpp)
 
 target_link_libraries(${TEST_NAME} PRIVATE ${LIB_NAME} GTest::gtest
                                            GTest::gtest_main)

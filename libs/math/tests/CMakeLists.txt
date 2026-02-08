@@ -4,12 +4,12 @@ set(TEST_NAME ${LIB_NAME}_test)
 
 add_executable(
     ${TEST_NAME}
-    discount_test.cpp
-    normal_test.cpp
-    online_stats_test.cpp
-    stats_mean_test.cpp
-    stats_variance_test.cpp
-    stats_stddev_test.cpp)
+    test_discount.cpp
+    test_normal.cpp
+    test_online_stats.cpp
+    test_stats_mean.cpp
+    test_stats_variance.cpp
+    test_stats_stddev.cpp)
 
 target_link_libraries(${TEST_NAME} PRIVATE ${LIB_NAME} GTest::gtest
                                            GTest::gtest_main)
