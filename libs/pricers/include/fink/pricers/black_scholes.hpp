@@ -1,3 +1,7 @@
+/**
+ * @file black_scholes.hpp
+ * @brief Black–Scholes analytic pricing formulas.
+ */
 #pragma once
 
 #include <cmath>

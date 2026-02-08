@@ -1,3 +1,7 @@
+/**
+ * @file concepts.hpp
+ * @brief Concepts for option contracts and payoff types.
+ */
 #pragma once
 
 #include <concepts>

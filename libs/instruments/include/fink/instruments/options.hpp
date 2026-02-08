@@ -1,3 +1,7 @@
+/**
+ * @file options.hpp
+ * @brief Core option contract types and payoff definitions.
+ */
 #pragma once
 
 namespace fink::instruments

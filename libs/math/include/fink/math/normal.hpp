@@ -1,3 +1,7 @@
+/**
+ * @file normal.hpp
+ * @brief Standard normal distribution functions (PDF and CDF).
+ */
 #pragma once
 
 #include <cmath>

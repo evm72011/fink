@@ -1,3 +1,7 @@
+/**
+ * @file european_mc.hpp
+ * @brief Monte Carlo pricing for European options.
+ */
 #pragma once
 
 #include <cstddef>

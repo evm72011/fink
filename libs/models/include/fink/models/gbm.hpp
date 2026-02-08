@@ -1,3 +1,7 @@
+/**
+ * @file gbm.hpp
+ * @brief Geometric Brownian motion (GBM) model utilities.
+ */
 #pragma once
 
 #include <cmath>

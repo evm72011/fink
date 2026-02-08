@@ -1,3 +1,7 @@
+/**
+ * @file discount.hpp
+ * @brief Discount factor utilities.
+ */
 #pragma once
 #include <cmath>
 

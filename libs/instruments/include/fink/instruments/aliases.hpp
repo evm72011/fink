@@ -1,3 +1,7 @@
+/**
+ * @file aliases.hpp
+ * @brief Convenience type aliases for common option types.
+ */
 #pragma once
 
 #include <fink/instruments/options.hpp>

@@ -1,3 +1,7 @@
+/**
+ * @file stats.hpp
+ * @brief Basic statistical utilities for contiguous data sequences.
+ */
 #pragma once
 
 #include <cstddef>

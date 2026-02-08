@@ -1,3 +1,7 @@
+/**
+ * @file concepts.hpp
+ * @brief Concepts for random number generators.
+ */
 #pragma once
 #include <concepts>
 

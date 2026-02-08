@@ -1,3 +1,7 @@
+/**
+ * @file pcg32.hpp
+ * @brief PCG32 pseudo-random number generator.
+ */
 #pragma once
 
 #include <cstdint>

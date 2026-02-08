@@ -1,3 +1,7 @@
+/**
+ * @file normal_rng.hpp
+ * @brief Standard normal random number generator.
+ */
 #pragma once
 
 #include <cmath>
