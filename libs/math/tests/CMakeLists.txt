@@ -6,6 +6,7 @@ add_executable(
     ${TEST_NAME}
     discount_test.cpp
     normal_test.cpp
+    online_stats_test.cpp
     stats_mean_test.cpp
     stats_variance_test.cpp
     stats_stddev_test.cpp)

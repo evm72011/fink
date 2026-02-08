@@ -23,10 +23,13 @@ INCLUDE_GRAPH          = YES
 #---------------------------------------------------------------------------
 # Build related configuration options
 #---------------------------------------------------------------------------
-EXTRACT_ALL             = YES
+EXTRACT_ALL             = NO
 RECURSIVE               = YES
 GENERATE_HTML           = YES
 GENERATE_LATEX          = NO
+
+# HTML navigation
+GENERATE_TREEVIEW       = NO
 
 # --- Math in HTML ---
 USE_MATHJAX        = YES
