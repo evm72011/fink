@@ -16,7 +16,7 @@ namespace fink::backends::cpu
 /**
  * @brief Serial CPU Monte Carlo backend.
  */
-class mc_backend
+class mc_backend_serial
 {
 public:
     template <typename SampleFn, typename Reducer>
