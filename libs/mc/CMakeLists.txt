@@ -28,5 +28,5 @@ add_clang_tidy(
     ${ENABLE_CLANG_TIDY})
 
 if(ENABLE_TESTING)
-   add_subdirectory(tests)
+    add_subdirectory(tests)
 endif()

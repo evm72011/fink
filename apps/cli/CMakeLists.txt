@@ -3,9 +3,7 @@ set(EXE_SOURCES "src/main.cpp")
 
 add_executable(${EXE_NAME} ${EXE_SOURCES})
 
-target_link_libraries(
-    ${EXE_NAME}
-    PRIVATE ${ALL_LIBS})
+target_link_libraries(${EXE_NAME} PRIVATE ${ALL_LIBS})
 
 target_set_warnings(
     TARGET

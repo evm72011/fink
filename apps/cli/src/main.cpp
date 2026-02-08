@@ -6,10 +6,10 @@
 
 #include <fink/models/gbm.hpp>
 
-#include <fink/rng/normal_rng.hpp>
-#include <fink/rng/pcg32.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
+#include <fink/rng/normal_rng.hpp>
+#include <fink/rng/pcg32.hpp>
 
 int main()
 {
@@ -39,7 +39,8 @@ int main()
     auto price_s = gbm_terminal_price(params, 1.0, z);
     std::cout << z << " : " << price_s << '\n';
 
-    auto price_o1 = fink::pricers::bs_european_call(100.0, 100.0, 0.05, 0.2, 1.5);
+    auto price_o1 =
+        fink::pricers::bs_european_call(100.0, 100.0, 0.05, 0.2, 1.5);
     std::cout << price_o1 << '\n';
 
     fink::pricers::mc_config conf;
