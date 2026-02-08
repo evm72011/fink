@@ -8,7 +8,7 @@
 DOXYFILE_ENCODING       = UTF-8
 PROJECT_NAME            = "fink"
 PROJECT_NUMBER          = 1.0
-PROJECT_BRIEF           =
+PROJECT_BRIEF           = "Experimental quant library for option pricing, Monte Carlo, and high-performance backends (CPU/GPU)"
 PROJECT_LOGO            =
 OUTPUT_DIRECTORY        = ./
 OUTPUT_LANGUAGE         = English

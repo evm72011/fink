@@ -11,14 +11,36 @@
 
 namespace fink::rng
 {
-
+/**
+ * @brief Standard normal random number generator.
+ *
+ * Produces independent samples from the standard normal distribution
+ * \f$\mathcal{N}(0,1)\f$ using the Box–Muller transform.
+ *
+ * The implementation caches one of the generated values, so every second
+ * call avoids recomputing logarithm, square root, and trigonometric
+ * functions.
+ *
+ * @note
+ * - Not thread-safe if shared between threads.
+ * - Relies on an underlying uniform RNG providing values in (0,1).
+ */
 class normal_rng
 {
 public:
+    /**
+     * @brief Construct a normal generator using an underlying uniform RNG.
+     *
+     * @param rng Uniform random number generator used as the entropy source.
+     */
     explicit normal_rng(pcg32 &rng) noexcept : rng_(rng)
     {
     }
 
+    /* @brief Generate a standard normal random value.
+     *
+     * @return A sample from \f$\mathcal{N}(0,1)\f$.
+     */
     [[nodiscard]] double operator()() noexcept
     {
         if (has_spare_)
