@@ -13,7 +13,7 @@
 #include <fink/rng/normal_rng.hpp>
 #include <fink/rng/pcg32.hpp>
 
-namespace fink::pricers
+namespace fink::pricers::native
 {
 
 /**

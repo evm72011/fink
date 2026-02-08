@@ -8,7 +8,7 @@
 #include <fink/instruments/aliases.hpp>
 #include <fink/models/gbm.hpp>
 #include <fink/pricers/black_scholes.hpp>
-#include <fink/pricers/european_mc.hpp>
+#include <fink/pricers/native/european_mc.hpp>
 #include <fink/rng/normal_rng.hpp>
 #include <fink/rng/pcg32.hpp>
 
@@ -36,10 +36,10 @@ void run_mc_benchmark(const european_call &option,
 {
     using clock = std::chrono::steady_clock;
 
-    fink::pricers::mc_config cfg{.paths = paths};
+    fink::pricers::native::mc_config cfg{.paths = paths};
 
     const auto t0 = clock::now();
-    const auto res = fink::pricers::price_european_mc(option, model, cfg);
+    const auto res = fink::pricers::native::price_european_mc(option, model, cfg);
     const auto t1 = clock::now();
 
     const double sec = std::chrono::duration<double>(t1 - t0).count();

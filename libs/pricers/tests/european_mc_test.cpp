@@ -1,7 +1,7 @@
 #include <fink/instruments/aliases.hpp>
 #include <fink/models/gbm.hpp>
 #include <fink/pricers/black_scholes.hpp>
-#include <fink/pricers/european_mc.hpp>
+#include <fink/pricers/native/european_mc.hpp>
 
 #include <gtest/gtest.h>
 
@@ -16,8 +16,8 @@ using fink::models::gbm_params;
 
 using fink::pricers::bs_european_call;
 using fink::pricers::bs_european_put;
-using fink::pricers::mc_config;
-using fink::pricers::price_european_mc;
+using fink::pricers::native::mc_config;
+using fink::pricers::native::price_european_mc;
 
 namespace
 {
