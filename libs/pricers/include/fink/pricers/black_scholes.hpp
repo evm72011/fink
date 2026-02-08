@@ -5,11 +5,11 @@
 #pragma once
 
 #include <cmath>
-#include <fink/math/normal.hpp>
+#include <fink/instruments/aliases.hpp>
+#include <fink/models/gbm.hpp>
 
 namespace fink::pricers
 {
-
 /**
  * @brief Black–Scholes price of a European call option.
  *
@@ -32,24 +32,17 @@ namespace fink::pricers
  *
  * and \f$\Phi(\cdot)\f$ is the standard normal cumulative distribution function.
  *
- * @param s0    Spot price of the underlying asset.
- * @param k     Strike price.
- * @param r     Risk-free continuously compounded interest rate.
- * @param sigma Volatility of the underlying asset.
- * @param T     Time to maturity in years.
+ * @param opt     European call option (strike, expiry).
+ * @param params  GBM parameters (spot, rate, volatility).
  *
  * @return Black–Scholes price of the European call option.
  *
  * @note
- * - This function assumes no dividends.
- * - This is an analytic benchmark, useful for validation of Monte Carlo pricers.
+ * - Assumes no dividends.
+ * - Useful as an analytic benchmark for Monte Carlo pricers.
  */
-[[nodiscard]] double bs_european_call(double s0,
-                                      double k,
-                                      double r,
-                                      double sigma,
-                                      double T) noexcept;
-
+[[nodiscard]] double bs_european_call(const instruments::european_call &opt,
+                                      const models::gbm_params &params) noexcept;
 
 /**
  * @brief Black–Scholes price of a European put option.
@@ -73,21 +66,15 @@ namespace fink::pricers
  *
  * and \f$\Phi(\cdot)\f$ is the standard normal cumulative distribution function.
  *
- * @param s0    Spot price of the underlying asset.
- * @param k     Strike price.
- * @param r     Risk-free continuously compounded interest rate.
- * @param sigma Volatility of the underlying asset.
- * @param T     Time to maturity in years.
+ * @param opt     European put option (strike, expiry).
+ * @param params  GBM parameters (spot, rate, volatility).
  *
  * @return Black–Scholes price of the European put option.
  *
  * @note
- * - This function assumes no dividends.
- * - This is an analytic benchmark, useful for validation of Monte Carlo pricers.
+ * - Assumes no dividends.
+ * - Useful as an analytic benchmark for Monte Carlo pricers.
  */
-[[nodiscard]] double bs_european_put(double s0,
-                                     double k,
-                                     double r,
-                                     double sigma,
-                                     double T) noexcept;
+[[nodiscard]] double bs_european_put(const instruments::european_put &opt,
+                                     const models::gbm_params &params) noexcept;
 } // namespace fink::pricers

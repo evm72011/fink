@@ -1,6 +1,8 @@
 #include <fink/instruments/aliases.hpp>
+#include <fink/models/gbm.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
+
 #include <gtest/gtest.h>
 
 #include <cmath>
@@ -9,7 +11,9 @@ using fink::instruments::call_payoff;
 using fink::instruments::european_call;
 using fink::instruments::european_put;
 using fink::instruments::put_payoff;
+
 using fink::models::gbm_params;
+
 using fink::pricers::bs_european_call;
 using fink::pricers::bs_european_put;
 using fink::pricers::mc_config;
@@ -28,8 +32,7 @@ TEST(Pricers_European_MC, DeterministicWhenSigmaZero_CallMatchesClosedForm)
     const mc_config cfg{.paths = 10'000, .seed = 123};
 
     const auto mc = price_european_mc(opt, model, cfg);
-    const double bs =
-        bs_european_call(model.s0, 100.0, model.r, model.sigma, opt.expiry);
+    const double bs = bs_european_call(opt, model);
 
     EXPECT_NEAR(mc.price, bs, eps_tight);
     EXPECT_NEAR(mc.stderr, 0.0, eps_tight);
@@ -43,8 +46,7 @@ TEST(Pricers_European_MC, DeterministicWhenSigmaZero_PutMatchesClosedForm)
     const mc_config cfg{.paths = 10'000, .seed = 123};
 
     const auto mc = price_european_mc(opt, model, cfg);
-    const double bs =
-        bs_european_put(model.s0, 100.0, model.r, model.sigma, opt.expiry);
+    const double bs = bs_european_put(opt, model);
 
     EXPECT_NEAR(mc.price, bs, eps_tight);
     EXPECT_NEAR(mc.stderr, 0.0, eps_tight);
@@ -75,8 +77,8 @@ TEST(Pricers_European_MC, ReproducibleForSameSeed)
     const auto a = price_european_mc(opt, model, cfg1);
     const auto b = price_european_mc(opt, model, cfg2);
 
-    EXPECT_NEAR(a.price, b.price, 0.0);
-    EXPECT_NEAR(a.stderr, b.stderr, 0.0);
+    EXPECT_DOUBLE_EQ(a.price, b.price);
+    EXPECT_DOUBLE_EQ(a.stderr, b.stderr);
 }
 
 TEST(Pricers_European_MC, DifferentSeedsUsuallyGiveDifferentEstimates)
@@ -91,8 +93,8 @@ TEST(Pricers_European_MC, DifferentSeedsUsuallyGiveDifferentEstimates)
     const auto a = price_european_mc(opt, model, cfg1);
     const auto b = price_european_mc(opt, model, cfg2);
 
-    // It's theoretically possible to match, but extremely unlikely.
-    EXPECT_NE(a.price, b.price);
+    // Extremely unlikely to be exactly equal; allow tiny tolerance to avoid flakiness.
+    EXPECT_GT(std::abs(a.price - b.price), 1e-15);
 }
 
 TEST(Pricers_European_MC, StandardErrorDecreasesWithMorePaths)
@@ -106,14 +108,12 @@ TEST(Pricers_European_MC, StandardErrorDecreasesWithMorePaths)
     const auto large =
         price_european_mc(opt, model, mc_config{.paths = 200'000, .seed = 123});
 
-    // stderr should scale approximately like 1/sqrt(N)
     EXPECT_LT(large.stderr, small.stderr);
 
     const double expected_ratio =
-        std::sqrt(20'000.0 / 200'000.0); // sqrt(N_small/N_large) = sqrt(0.1)
+        std::sqrt(20'000.0 / 200'000.0); // sqrt(N_small/N_large)
     const double ratio = large.stderr / small.stderr;
 
-    // wide tolerance because payoff distribution is not perfectly stable for finite N
     EXPECT_NEAR(ratio, expected_ratio, 0.15 * expected_ratio);
 }
 
@@ -133,8 +133,6 @@ TEST(Pricers_European_MC, PutCallParityHoldsWithinMonteCarloError)
 
     const double rhs = model.s0 - K * std::exp(-model.r * T);
 
-    // Errors add (roughly) in quadrature; use a conservative bound.
     const double tol = 5.0 * (c.stderr + p.stderr);
-
     EXPECT_NEAR(c.price - p.price, rhs, tol);
 }
