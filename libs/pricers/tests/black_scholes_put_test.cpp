@@ -46,7 +46,8 @@ TEST(Pricers_BlackScholes_Put, ZeroVolatilityBecomesDiscountedForwardIntrinsic)
     EXPECT_NEAR(price, expected, eps_tight);
 }
 
-TEST(Pricers_BlackScholes_Put, DeepInTheMoneyApproachesDiscountedStrikeMinusSpot)
+TEST(Pricers_BlackScholes_Put,
+     DeepInTheMoneyApproachesDiscountedStrikeMinusSpot)
 {
     // For very small S0 relative to K, put price approaches:
     // P ≈ K*exp(-rT) - S0

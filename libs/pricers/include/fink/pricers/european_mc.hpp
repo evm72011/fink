@@ -7,7 +7,10 @@
 #include <cstddef>
 #include <cstdint>
 
-#include <fink/instruments/aliases.hpp>
+#include <fink/rng/normal_rng.hpp>
+#include <fink/rng/pcg32.hpp>
+#include <fink/math/online_stats.hpp>
+#include <fink/instruments/concepts.hpp>
 #include <fink/models/gbm.hpp>
 
 namespace fink::pricers
@@ -38,9 +41,9 @@ struct mc_result
 };
 
 /**
- * @brief Price a European call option using Monte Carlo simulation.
+ * @brief Price a European option using Monte Carlo simulation.
  *
- * Estimates the price of a European call option by simulating terminal
+ * Estimates the price of a European-style option by simulating terminal
  * asset prices under a geometric Brownian motion (GBM) model and
  * discounting the expected payoff.
  *
@@ -52,7 +55,9 @@ struct mc_result
  *
  * under the risk-neutral measure.
  *
- * @param opt   European call option contract.
+ * @tparam Option European option type satisfying european_option_like.
+ *
+ * @param opt   European option contract (e.g. call or put).
  * @param model Parameters of the GBM model.
  * @param cfg   Monte Carlo configuration (paths, seed).
  *
@@ -65,9 +70,29 @@ struct mc_result
  * - Intended as a reference implementation and for comparison with
  *   analytic Black–Scholes pricing.
  */
-[[nodiscard]] mc_result price_european_call_mc(
-    const fink::instruments::european_call &opt,
-    const fink::models::gbm_params &model,
-    const mc_config &cfg) noexcept;
+template <fink::instruments::european_option_like Option>
+[[nodiscard]] inline mc_result price_european_mc(const Option& opt,
+                                                 const fink::models::gbm_params& model,
+                                                 const mc_config& cfg) noexcept
+{
+    fink::rng::pcg32 urng(cfg.seed);
+    fink::rng::normal_rng n(urng);
+    fink::math::online_stats stats;
+
+    for (std::size_t i = 0; i < cfg.paths; ++i)
+    {
+        const double Z = n();
+        const double ST = fink::models::gbm_terminal_price(model, opt.expiry, Z);
+        const double payoff = opt.payoff(ST);
+        stats.add(payoff);
+    }
+
+    const double df = std::exp(-model.r * opt.expiry);
+
+    return mc_result{
+        .price = df * stats.mean(),
+        .stderr = df * stats.stderr(),
+    };
+}
 
 } // namespace fink::pricers

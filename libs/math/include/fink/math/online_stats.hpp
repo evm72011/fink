@@ -4,8 +4,8 @@
  */
 #pragma once
 
-#include <cstddef>
 #include <cmath>
+#include <cstddef>
 
 namespace fink::math
 {
@@ -59,7 +59,7 @@ namespace fink::math
  */
 class online_stats
 {
-public:  
+public:
     /**
      * @brief Add a new observation to the statistics.
      *
@@ -83,12 +83,18 @@ public:
     /**
      * @brief Number of samples processed.
      */
-    [[nodiscard]] std::size_t count() const noexcept { return n_; }
+    [[nodiscard]] std::size_t count() const noexcept
+    {
+        return n_;
+    }
 
     /**
      * @brief Sample mean.
      */
-    [[nodiscard]] double mean() const noexcept { return mean_; }
+    [[nodiscard]] double mean() const noexcept
+    {
+        return mean_;
+    }
 
     /**
      * @brief Unbiased sample variance.
@@ -119,10 +125,11 @@ public:
     [[nodiscard]] double stderr() const noexcept
     {
         return (n_ > 0) ? stddev() / std::sqrt(static_cast<double>(n_)) : 0.0;
-    }    
+    }
+
 private:
     std::size_t n_{0};
     double mean_{0.0};
     double m2_{0.0};
-};    
-}
+};
+} // namespace fink::math

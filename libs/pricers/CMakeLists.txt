@@ -1,6 +1,6 @@
 set(LIB_NAME ${PRICERS_LIB_NAME})
 
-add_library(${LIB_NAME} STATIC src/black_scholes.cpp src/european_mc.cpp)
+add_library(${LIB_NAME} STATIC src/black_scholes.cpp)
 
 target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
 
