@@ -2,15 +2,16 @@
 
 #include <fink/mc/engine.hpp>
 #include <fink/mc/reducer.hpp>
+#include <fink/mc/result.hpp>
+#include <fink/rng/normal_rng.hpp>
 
 namespace fink::pricers
 {
 
 template <typename Backend,
           typename Instrument,
-          typename Model,
-          typename RngNormal>
-double european_mc(const Instrument& inst,
+          typename Model>
+[[nodiscard]] inline fink::mc::mc_result price_european_mc(const Instrument& inst,
                    const Model& model,
                    std::size_t paths,
                    Backend&& backend)
@@ -21,17 +22,13 @@ double european_mc(const Instrument& inst,
 
     auto sample = [&](std::size_t /*i*/, auto& rng) -> double
     {
-        // TODO
-        // 1. sampling Z
-        // 2. S_T
-        // 3. payoff
-        // 4. discount
-        return 0.0;
+        fink::rng::normal_rng n(rng);
+        const double Z = n();
+        const double ST = fink::models::gbm_terminal_price(model, inst.expiry, Z);
+        return inst.payoff(ST);
     };
 
-    auto result = fink::mc::run(cfg, backend, sample, reducer);
-
-    return result.mean;
+    return fink::mc::run(cfg, backend, sample, reducer);
 }
 
 }
