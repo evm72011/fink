@@ -15,6 +15,7 @@ set(VENV_DIR
     CACHE PATH "Path to Python virtual environment")
 
 set(BACKENDS_LIB_NAME "fink-backends")
+set(EXAMPLES_LIB_NAME "fink-examples")
 set(INSTRUMENTS_LIB_NAME "fink-instruments")
 set(MATH_LIB_NAME "fink-math")
 set(MC_LIB_NAME "fink-mc")

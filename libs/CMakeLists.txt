@@ -1,4 +1,5 @@
 add_subdirectory(backends)
+add_subdirectory(examples)
 add_subdirectory(instruments)
 add_subdirectory(math)
 add_subdirectory(mc)
