@@ -61,11 +61,13 @@ int main()
     const auto sigma = 0.1;
     const auto r = 0.05;
     const auto T = 1.5;
+    const auto strike = 120.0;
 
     print_row("Spot price", spot);
     print_row("Volatility (stddev)", sigma);
     print_row("Risk free rate", r);
     print_row("Time to maturity (years)", T);
+    print_row("Strike price", strike);
 
     std::random_device rd;
     fink::rng::pcg32 pcg(rd());
@@ -80,9 +82,6 @@ int main()
     auto price_spot = fink::models::gbm_terminal_price(gbm_params, T, z);
     std::cout << '\n';
     print_row("Simulated terminal price (GBM)", price_spot);
-
-    const auto strike = 120.0;
-    print_row("Strike price", strike);
     std::cout << '\n';
 
     const european_call option{

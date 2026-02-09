@@ -1,4 +1,4 @@
-set(EXE_NAME example-european-call)
+set(EXE_NAME example-european-call-native)
 set(EXE_SOURCES "src/main.cpp")
 
 add_executable(${EXE_NAME} ${EXE_SOURCES})
