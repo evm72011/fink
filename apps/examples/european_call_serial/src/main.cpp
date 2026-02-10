@@ -2,6 +2,7 @@
 #include <format>
 #include <iostream>
 
+#include <fink/examples/format.hpp>
 #include <fink/instruments/aliases.hpp>
 #include <fink/models/gbm.hpp>
 #include <fink/mc/config.hpp>
@@ -9,21 +10,7 @@
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
 
-void print_row(std::string_view label, double value)
-{
-    constexpr int w = 50;
-    std::cout << std::left << std::setfill('.') << std::setw(w) << label
-              << std::setfill(' ') << value << '\n';
-}
-
-std::string format_paths(size_t n)
-{
-    if (n >= 1'000'000)
-        return std::to_string(n / 1'000'000) + "M";
-    if (n >= 1'000)
-        return std::to_string(n / 1'000) + "K";
-    return std::to_string(n);
-}
+using namespace fink::examples;
 
 void run_mc_benchmark(const fink::instruments::european_call &option,
                       const fink::models::gbm_params &model,
@@ -34,7 +21,7 @@ void run_mc_benchmark(const fink::instruments::european_call &option,
     fink::mc::mc_config cfg{};
     cfg.paths = paths;
 
-    fink::backends::cpu::mc_backend_serial backend{}; // или mc_backend_serial
+    fink::backends::cpu::mc_backend_serial backend{};
 
     const auto t0 = clock::now();
     const auto res = fink::pricers::price_european_mc(option, model, cfg.paths, backend);
@@ -55,28 +42,10 @@ void run_mc_benchmark(const fink::instruments::european_call &option,
 
 int main()
 {
-    const auto spot = 100.0;
-    const auto sigma = 0.1;
-    const auto r = 0.05;
-    const auto T = 1.5;
-    const auto strike = 120.0;
-
-    print_row("Spot price", spot);
-    print_row("Volatility (stddev)", sigma);
-    print_row("Risk free rate", r);
-    print_row("Time to maturity (years)", T);
-    print_row("Strike price", strike);
-
-    fink::models::gbm_params gbm_params{
-        .s0{spot},
-        .r{r},
-        .sigma{sigma},
-    };
-
-    const fink::instruments::european_call option{
-        .expiry = T,
-        .payoff = fink::instruments::call_payoff{.strike = strike},
-    };
+    auto option = default_european_call();
+    auto gbm_params = default_gbm_params();
+    
+    print_info(option, gbm_params);
 
     auto price_bs = fink::pricers::bs_european_call(option, gbm_params);
     print_row("Black-Scholes analytical price", price_bs);
