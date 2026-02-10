@@ -8,7 +8,7 @@ using fink::math::online_stats;
 
 TEST(Math_OnlineStats, EmptyStats)
 {
-    online_stats s;
+    const online_stats s;
 
     EXPECT_EQ(s.count(), 0u);
     EXPECT_DOUBLE_EQ(s.mean(), 0.0);
@@ -33,8 +33,8 @@ TEST(Math_OnlineStats, SimpleSequence)
 {
     online_stats s;
 
-    std::array<double, 4> v{1.0, 2.0, 3.0, 4.0};
-    for (double x : v)
+    const std::array<double, 4> v{1.0, 2.0, 3.0, 4.0};
+    for (const double x : v)
         s.add(x);
 
     EXPECT_EQ(s.count(), 4u);
@@ -46,8 +46,8 @@ TEST(Math_OnlineStats, NegativeValues)
 {
     online_stats s;
 
-    std::array<double, 4> v{-1.0, -2.0, -3.0, -4.0};
-    for (double x : v)
+    const std::array<double, 4> v{-1.0, -2.0, -3.0, -4.0};
+    for (const double x : v)
         s.add(x);
 
     EXPECT_EQ(s.count(), 4u);
@@ -59,8 +59,8 @@ TEST(Math_OnlineStats, MixedValuesZeroMean)
 {
     online_stats s;
 
-    std::array<double, 4> v{-1.0, 1.0, -1.0, 1.0};
-    for (double x : v)
+    const std::array<double, 4> v{-1.0, 1.0, -1.0, 1.0};
+    for (const double x : v)
         s.add(x);
 
     EXPECT_EQ(s.count(), 4u);
@@ -70,10 +70,10 @@ TEST(Math_OnlineStats, MixedValuesZeroMean)
 
 TEST(Math_OnlineStats, MatchesBatchComputation)
 {
-    std::vector<double> v{2.0, 4.0, 6.0, 8.0};
+    const std::vector<double> v{2.0, 4.0, 6.0, 8.0};
 
     online_stats s;
-    for (double x : v)
+    for (const double x : v)
         s.add(x);
 
     const double expected_mean = 5.0;

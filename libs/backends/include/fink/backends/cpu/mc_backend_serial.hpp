@@ -5,6 +5,7 @@
 #pragma once
 
 #include <cstddef>
+#include <utility>
 
 #include <fink/mc/config.hpp>
 #include <fink/mc/result.hpp>
@@ -28,7 +29,7 @@ public:
 
         for (std::size_t i = 0; i < cfg.paths; ++i)
         {
-            const double x = sample(i, rng);
+            const double x = std::forward<SampleFn>(sample)(i, rng);
             reducer.add(x);
         }
 

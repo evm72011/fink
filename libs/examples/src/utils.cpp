@@ -9,9 +9,9 @@ namespace fink::examples
 fink::models::gbm_params default_gbm_params()
 {
     fink::models::gbm_params result{
-        .s0{100.0},
-        .r{0.05},
-        .sigma{0.1},
+        .s0 = 100.0,
+        .r = 0.05,
+        .sigma = 0.1,
     };
     return result;
 }

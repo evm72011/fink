@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <utility>
 
 #include <fink/mc/config.hpp>
 #include <fink/mc/engine.hpp>
@@ -25,7 +26,7 @@ struct test_backend
 
         for (std::size_t i = 0; i < cfg.paths; ++i)
         {
-            const double x = sample(i, rng);
+            const double x = std::forward<SampleFn>(sample)(i, rng);
             reducer.add(x);
         }
 
@@ -38,8 +39,8 @@ TEST(mc_engine, constant_sample_mean_variance_stderr)
 {
     const fink::mc::mc_config cfg{.paths = 10, .seed = 42};
 
-    test_backend backend{};
-    fink::mc::online_stats_reducer reducer{};
+    const test_backend backend{};
+    const fink::mc::online_stats_reducer reducer{};
 
     auto sample = [](std::size_t /*i*/, dummy_rng & /*rng*/) -> double {
         return 3.0;
@@ -57,8 +58,8 @@ TEST(mc_engine, sample_uses_index_and_seed_is_passed)
 {
     const fink::mc::mc_config cfg{.paths = 5, .seed = 7};
 
-    test_backend backend{};
-    fink::mc::online_stats_reducer reducer{};
+    const test_backend backend{};
+    const fink::mc::online_stats_reducer reducer{};
 
     // x = i + seed
     auto sample = [](std::size_t i, dummy_rng &rng) -> double {

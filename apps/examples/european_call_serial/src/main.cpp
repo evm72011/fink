@@ -1,12 +1,12 @@
 #include <array>
 #include <iostream>
 
+#include <fink/backends/cpu/mc_backend_serial.hpp>
 #include <fink/examples/utils.hpp>
+#include <fink/mc/config.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
 #include <fink/pricers/native/european_mc.hpp>
-#include <fink/mc/config.hpp>
-#include <fink/backends/cpu/mc_backend_serial.hpp>
 
 using namespace fink::examples;
 
@@ -22,7 +22,10 @@ int main()
     print_row("Black-Scholes analytical price", price_bs);
     std::cout << '\n';
 
-    const std::array<size_t, 4> paths_set {100'000, 1'000'000, 5'000'000, 10'000'000};
+    const std::array<size_t, 4> paths_set{100'000,
+                                          1'000'000,
+                                          5'000'000,
+                                          10'000'000};
     for (auto paths : paths_set)
     {
         run_mc_benchmark(
@@ -30,13 +33,15 @@ int main()
             gbm_params,
             paths,
             [paths](auto const &opt, auto const &mdl) {
-                fink::mc::mc_config cfg{.paths = paths};
-                fink::backends::cpu::mc_backend_serial backend{};
-                auto result = fink::pricers::price_european_mc(opt, mdl, cfg.paths, backend);
-                return fink::pricers::native::mc_result {
+                const fink::mc::mc_config cfg{.paths = paths};
+                const fink::backends::cpu::mc_backend_serial backend{};
+                auto result = fink::pricers::price_european_mc(opt,
+                                                               mdl,
+                                                               cfg.paths,
+                                                               backend);
+                return fink::pricers::native::mc_result{
                     .price = result.mean,
-                    .stderr = result.std_error
-                };  // TODO map to examples result
+                    .stderr = result.std_error}; // TODO map to examples result
             });
     }
 }

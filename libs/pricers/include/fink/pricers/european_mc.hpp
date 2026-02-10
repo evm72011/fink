@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include <fink/mc/engine.hpp>
 #include <fink/mc/reducer.hpp>
 #include <fink/mc/result.hpp>
@@ -15,9 +17,9 @@ template <typename Backend, typename Instrument, typename Model>
     std::size_t paths,
     Backend &&backend)
 {
-    fink::mc::mc_config cfg{paths};
+    const fink::mc::mc_config cfg{paths};
 
-    fink::mc::online_stats_reducer reducer{};
+    const fink::mc::online_stats_reducer reducer{};
 
     auto sample = [&](std::size_t /*i*/, auto &rng) -> double {
         fink::rng::normal_rng n(rng);
@@ -27,7 +29,7 @@ template <typename Backend, typename Instrument, typename Model>
         return inst.payoff(ST);
     };
 
-    return fink::mc::run(cfg, backend, sample, reducer);
+    return fink::mc::run(cfg, std::forward<Backend>(backend), sample, reducer);
 }
 
 } // namespace fink::pricers

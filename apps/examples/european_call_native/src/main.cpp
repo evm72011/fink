@@ -1,5 +1,5 @@
-#include <iostream>
 #include <array>
+#include <iostream>
 
 #include <fink/examples/utils.hpp>
 #include <fink/pricers/black_scholes.hpp>
@@ -19,7 +19,10 @@ int main()
     print_row("Black-Scholes analytical price", price_bs);
     std::cout << '\n';
 
-    const std::array<size_t, 4> paths_set {100'000, 1'000'000, 5'000'000, 10'000'000};
+    const std::array<size_t, 4> paths_set{100'000,
+                                          1'000'000,
+                                          5'000'000,
+                                          10'000'000};
     for (auto paths : paths_set)
     {
         run_mc_benchmark(
@@ -27,8 +30,9 @@ int main()
             gbm_params,
             paths,
             [paths](auto const &opt, auto const &mdl) {
-                fink::pricers::native::mc_config cfg{.paths = paths};
-                auto result = fink::pricers::native::price_european_mc(opt, mdl, cfg);
+                const fink::pricers::native::mc_config cfg{.paths = paths};
+                auto result =
+                    fink::pricers::native::price_european_mc(opt, mdl, cfg);
                 return result; // TODO map to examples result
             });
     }
