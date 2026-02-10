@@ -20,8 +20,8 @@ class mc_backend_serial
 {
 public:
     template <typename SampleFn, typename Reducer>
-    [[nodiscard]] fink::mc::mc_result run(const fink::mc::mc_config& cfg,
-                                          SampleFn&& sample,
+    [[nodiscard]] fink::mc::mc_result run(const fink::mc::mc_config &cfg,
+                                          SampleFn &&sample,
                                           Reducer reducer) const
     {
         fink::rng::pcg32 rng{cfg.seed};

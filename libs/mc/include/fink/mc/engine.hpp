@@ -26,16 +26,15 @@ namespace fink::mc
  * @param reducer Reducer instance.
  */
 template <typename Backend, typename SampleFn, typename Reducer>
-requires backend<Backend, SampleFn, Reducer>
-[[nodiscard]] mc_result run(const mc_config& cfg,
-                            Backend&& backend,
-                            SampleFn&& sample,
-                            Reducer&& reducer)
+    requires backend<Backend, SampleFn, Reducer>
+[[nodiscard]] mc_result run(const mc_config &cfg,
+                            Backend &&backend,
+                            SampleFn &&sample,
+                            Reducer &&reducer)
 {
-    return std::forward<Backend>(backend).run(
-        cfg,
-        std::forward<SampleFn>(sample),
-        std::forward<Reducer>(reducer));
+    return std::forward<Backend>(backend).run(cfg,
+                                              std::forward<SampleFn>(sample),
+                                              std::forward<Reducer>(reducer));
 }
 
 } // namespace fink::mc

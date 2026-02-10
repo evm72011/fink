@@ -24,7 +24,8 @@ void run_mc_benchmark(const fink::instruments::european_call &option,
     fink::pricers::native::mc_config cfg{.paths = paths};
 
     const auto t0 = clock::now();
-    const auto res = fink::pricers::native::price_european_mc(option, model, cfg);
+    const auto res =
+        fink::pricers::native::price_european_mc(option, model, cfg);
     const auto t1 = clock::now();
 
     const double sec = std::chrono::duration<double>(t1 - t0).count();
@@ -45,7 +46,7 @@ int main()
 
     auto option = default_european_call();
     auto gbm_params = default_gbm_params();
-    
+
     print_info(option, gbm_params);
 
     auto price_bs = fink::pricers::bs_european_call(option, gbm_params);

@@ -2,11 +2,11 @@
 #include <format>
 #include <iostream>
 
+#include <fink/backends/cpu/mc_backend_serial.hpp>
 #include <fink/examples/utils.hpp>
 #include <fink/instruments/aliases.hpp>
-#include <fink/models/gbm.hpp>
 #include <fink/mc/config.hpp>
-#include <fink/backends/cpu/mc_backend_serial.hpp>
+#include <fink/models/gbm.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
 
@@ -24,7 +24,8 @@ void run_mc_benchmark(const fink::instruments::european_call &option,
     fink::backends::cpu::mc_backend_serial backend{};
 
     const auto t0 = clock::now();
-    const auto res = fink::pricers::price_european_mc(option, model, cfg.paths, backend);
+    const auto res =
+        fink::pricers::price_european_mc(option, model, cfg.paths, backend);
     const auto t1 = clock::now();
 
     const double sec = std::chrono::duration<double>(t1 - t0).count();
@@ -44,7 +45,7 @@ int main()
 {
     auto option = default_european_call();
     auto gbm_params = default_gbm_params();
-    
+
     print_info(option, gbm_params);
 
     auto price_bs = fink::pricers::bs_european_call(option, gbm_params);

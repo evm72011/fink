@@ -17,8 +17,8 @@ struct dummy_rng
 struct test_backend
 {
     template <typename SampleFn, typename Reducer>
-    [[nodiscard]] fink::mc::mc_result run(const fink::mc::mc_config& cfg,
-                                          SampleFn&& sample,
+    [[nodiscard]] fink::mc::mc_result run(const fink::mc::mc_config &cfg,
+                                          SampleFn &&sample,
                                           Reducer reducer) const
     {
         dummy_rng rng{cfg.seed};
@@ -41,7 +41,9 @@ TEST(mc_engine, constant_sample_mean_variance_stderr)
     test_backend backend{};
     fink::mc::online_stats_reducer reducer{};
 
-    auto sample = [](std::size_t /*i*/, dummy_rng& /*rng*/) -> double { return 3.0; };
+    auto sample = [](std::size_t /*i*/, dummy_rng & /*rng*/) -> double {
+        return 3.0;
+    };
 
     const auto r = fink::mc::run(cfg, backend, sample, reducer);
 
@@ -59,7 +61,7 @@ TEST(mc_engine, sample_uses_index_and_seed_is_passed)
     fink::mc::online_stats_reducer reducer{};
 
     // x = i + seed
-    auto sample = [](std::size_t i, dummy_rng& rng) -> double {
+    auto sample = [](std::size_t i, dummy_rng &rng) -> double {
         return static_cast<double>(i) + static_cast<double>(rng.s);
     };
 

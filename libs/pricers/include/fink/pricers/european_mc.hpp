@@ -8,27 +8,26 @@
 namespace fink::pricers
 {
 
-template <typename Backend,
-          typename Instrument,
-          typename Model>
-[[nodiscard]] inline fink::mc::mc_result price_european_mc(const Instrument& inst,
-                   const Model& model,
-                   std::size_t paths,
-                   Backend&& backend)
+template <typename Backend, typename Instrument, typename Model>
+[[nodiscard]] inline fink::mc::mc_result price_european_mc(
+    const Instrument &inst,
+    const Model &model,
+    std::size_t paths,
+    Backend &&backend)
 {
     fink::mc::mc_config cfg{paths};
 
     fink::mc::online_stats_reducer reducer{};
 
-    auto sample = [&](std::size_t /*i*/, auto& rng) -> double
-    {
+    auto sample = [&](std::size_t /*i*/, auto &rng) -> double {
         fink::rng::normal_rng n(rng);
         const double Z = n();
-        const double ST = fink::models::gbm_terminal_price(model, inst.expiry, Z);
+        const double ST =
+            fink::models::gbm_terminal_price(model, inst.expiry, Z);
         return inst.payoff(ST);
     };
 
     return fink::mc::run(cfg, backend, sample, reducer);
 }
 
-}
+} // namespace fink::pricers

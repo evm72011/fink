@@ -97,4 +97,4 @@ template <fink::instruments::european_option_like Option>
     };
 }
 
-} // namespace fink::pricers
+} // namespace fink::pricers::native

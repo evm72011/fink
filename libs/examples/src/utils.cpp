@@ -1,5 +1,5 @@
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 #include <fink/examples/utils.hpp>
 
@@ -8,18 +8,18 @@ namespace fink::examples
 
 fink::models::gbm_params default_gbm_params()
 {
-    fink::models::gbm_params result {
+    fink::models::gbm_params result{
         .s0{100.0},
         .r{0.05},
         .sigma{0.1},
     };
-    return result;    
+    return result;
 }
 
 fink::instruments::european_call default_european_call()
 {
     using namespace fink::instruments;
-    european_call result {
+    european_call result{
         .expiry = 1.5,
         .payoff = call_payoff{.strike = 120.0},
     };
@@ -33,7 +33,7 @@ void print_row(std::string_view label, double value)
               << std::setfill(' ') << value << '\n';
 }
 
-void print_info(fink::instruments::european_call &option, 
+void print_info(fink::instruments::european_call &option,
                 fink::models::gbm_params &params)
 {
     print_row("Spot price", params.s0);
@@ -52,4 +52,4 @@ std::string format_paths(size_t n)
     return std::to_string(n);
 }
 
-}
+} // namespace fink::examples
