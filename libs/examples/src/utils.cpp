@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip>
 
-#include <fink/examples/format.hpp>
+#include <fink/examples/utils.hpp>
 
 namespace fink::examples
 {

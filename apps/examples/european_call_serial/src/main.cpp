@@ -2,7 +2,7 @@
 #include <format>
 #include <iostream>
 
-#include <fink/examples/format.hpp>
+#include <fink/examples/utils.hpp>
 #include <fink/instruments/aliases.hpp>
 #include <fink/models/gbm.hpp>
 #include <fink/mc/config.hpp>

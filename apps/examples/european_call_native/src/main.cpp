@@ -5,7 +5,7 @@
 #include <random>
 #include <string_view>
 
-#include <fink/examples/format.hpp>
+#include <fink/examples/utils.hpp>
 #include <fink/instruments/aliases.hpp>
 #include <fink/models/gbm.hpp>
 #include <fink/pricers/black_scholes.hpp>
@@ -14,7 +14,6 @@
 #include <fink/rng/pcg32.hpp>
 
 using namespace fink::examples;
-//using namespace fink::instruments;
 
 void run_mc_benchmark(const fink::instruments::european_call &option,
                       const fink::models::gbm_params &model,
