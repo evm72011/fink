@@ -1,6 +1,8 @@
 BUILD_DIR  := build/wsl
 BUILD_TYPE := Debug # Release
 
+EXAMPLE ?= european_call
+
 VENV_DIR   := .venv/wsl
 PYTHON     := $(VENV_DIR)/bin/python
 CONAN      := $(VENV_DIR)/bin/conan
@@ -36,11 +38,14 @@ build:
 	fi; \
 	printf "$(GREEN)Build OK$(RESET)\n"
 
-run:
-	@./$(BUILD_DIR)/apps/examples/european_call_serial/example-european-call-serial; rc=$$?; \
+run: example-native
+
+example-%:
+	@./$(BUILD_DIR)/apps/examples/$(EXAMPLE)_$*/example-$(subst _,-,$(EXAMPLE))-$*; rc=$$?; \
 	  printf "$(GRAY)■$(RESET)\n"; \
 	  if [ $$rc -ne 0 ]; then printf "$(RED)ExitCode=$$rc$(RESET)\n"; \
-	  else printf "$(GRAY)ExitCode=$$rc$(RESET)\n"; fi
+	  else printf "$(GRAY)ExitCode=$$rc$(RESET)\n"; fi; \
+	  exit $$rc
 
 test:
 	ctest --test-dir $(BUILD_DIR) --output-on-failure
