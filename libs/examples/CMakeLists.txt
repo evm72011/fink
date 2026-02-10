@@ -4,7 +4,8 @@ add_library(${LIB_NAME} STATIC src/utils.cpp)
 
 target_include_directories(${LIB_NAME} PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
 
-target_link_libraries(${LIB_NAME} PRIVATE ${MODELS_LIB_NAME} ${INSTRUMENTS_LIB_NAME})
+target_link_libraries(${LIB_NAME} PRIVATE ${MODELS_LIB_NAME}
+                                          ${INSTRUMENTS_LIB_NAME})
 
 target_set_warnings(
     TARGET

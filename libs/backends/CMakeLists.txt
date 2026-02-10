@@ -2,7 +2,7 @@ set(LIB_NAME ${BACKENDS_LIB_NAME})
 
 add_library(${LIB_NAME} INTERFACE)
 
-target_include_directories(${LIB_NAME} 
+target_include_directories(${LIB_NAME}
                            INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
 
 target_set_warnings(

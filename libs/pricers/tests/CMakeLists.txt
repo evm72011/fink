@@ -2,8 +2,9 @@ find_package(GTest CONFIG REQUIRED)
 
 set(TEST_NAME ${LIB_NAME}_test)
 
-add_executable(${TEST_NAME} test_black_scholes_call.cpp
-                            test_black_scholes_put.cpp test_european_mc_native.cpp)
+add_executable(
+    ${TEST_NAME} test_black_scholes_call.cpp test_black_scholes_put.cpp
+                 test_european_mc_native.cpp)
 
 target_link_libraries(${TEST_NAME} PRIVATE ${LIB_NAME} GTest::gtest
                                            GTest::gtest_main)

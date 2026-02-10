@@ -2,8 +2,7 @@ find_package(GTest CONFIG REQUIRED)
 
 set(TEST_NAME ${LIB_NAME}_test)
 
-add_executable(${TEST_NAME} test_mc_engine.cpp
-)
+add_executable(${TEST_NAME} test_mc_engine.cpp)
 
 target_link_libraries(${TEST_NAME} PRIVATE ${LIB_NAME} GTest::gtest
                                            GTest::gtest_main)
