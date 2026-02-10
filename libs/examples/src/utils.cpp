@@ -41,6 +41,7 @@ void print_info(fink::instruments::european_call &option,
     print_row("Risk free rate", params.r);
     print_row("Time to maturity (years)", option.expiry);
     print_row("Strike price", option.payoff.strike);
+    std::cout << '\n';
 }
 
 std::string format_paths(size_t n)

@@ -1,3 +1,5 @@
+#include <chrono>
+#include <functional>
 #include <string_view>
 
 #include <fink/instruments/aliases.hpp>
@@ -5,10 +7,40 @@
 
 namespace fink::examples
 {
+
 void print_row(std::string_view label, double value);
+
 std::string format_paths(size_t n);
+
 fink::models::gbm_params default_gbm_params();
+
 fink::instruments::european_call default_european_call();
+
 void print_info(fink::instruments::european_call &option,
                 fink::models::gbm_params &params);
+
+template <class Pricer>
+void run_mc_benchmark(const fink::instruments::european_call &option,
+                      const fink::models::gbm_params &model,
+                      size_t paths,
+                      Pricer &&pricer)
+{
+    using clock = std::chrono::steady_clock;
+
+
+    const auto t0 = clock::now();
+    auto res = std::invoke(std::forward<Pricer>(pricer), option, model);
+    const auto t1 = clock::now();
+
+    const double sec = std::chrono::duration<double>(t1 - t0).count();
+
+    const auto main_label = std::format("[{} paths]", format_paths(paths));
+
+    print_row(main_label, res.price);
+
+    const auto meta =
+        std::format("[time(sec): {:.5f}, stderr: {:.6g}]", sec, res.stderr);
+
+    std::cout << meta << "\n\n";
+}
 } // namespace fink::examples
