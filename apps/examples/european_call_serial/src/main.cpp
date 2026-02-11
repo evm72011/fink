@@ -43,9 +43,10 @@ int main()
                                                                mdl,
                                                                cfg.paths,
                                                                backend);
-                return fink::pricers::native::mc_result{
+                return example_result{
                     .price = result.mean,
-                    .stderr = result.std_error}; // TODO map to examples result
+                    .stderr = result.std_error
+                };
             });
     }
 }

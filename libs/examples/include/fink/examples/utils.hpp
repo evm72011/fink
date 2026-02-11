@@ -10,6 +10,12 @@
 
 namespace fink::examples
 {
+struct example_result
+{
+    double price {0.0};
+    double stderr {0.0};
+};
+    
 template <class Pricer>
 void run_mc_benchmark(const fink::instruments::european_call &option,
                       const fink::models::gbm_params &model,
@@ -20,7 +26,7 @@ void run_mc_benchmark(const fink::instruments::european_call &option,
 
 
     const auto t0 = clock::now();
-    auto res = std::invoke(std::forward<Pricer>(pricer), option, model);
+    example_result res = std::invoke(std::forward<Pricer>(pricer), option, model);
     const auto t1 = clock::now();
 
     const double sec = std::chrono::duration<double>(t1 - t0).count();

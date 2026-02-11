@@ -37,7 +37,10 @@ int main()
                 const fink::pricers::native::mc_config cfg{.paths = paths};
                 auto result =
                     fink::pricers::native::price_european_mc(opt, mdl, cfg);
-                return result; // TODO map to examples result
+                return example_result{
+                    .price = result.price,
+                    .stderr = result.stderr
+                };  // TODO results native and seial with the same structure
             });
     }
 }
