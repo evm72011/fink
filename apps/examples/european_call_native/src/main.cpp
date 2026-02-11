@@ -1,6 +1,8 @@
 #include <array>
 #include <iostream>
 
+#include <fink/examples/defaults.hpp>
+#include <fink/examples/formatters.hpp>
 #include <fink/examples/utils.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/native/european_mc.hpp>
@@ -10,10 +12,12 @@ using namespace fink::examples;
 int main()
 {
     std::cout << "Monte Carlo native\n\n";
-    auto option = default_european_call();
-    auto gbm_params = default_gbm_params();
 
-    print_info(option, gbm_params);
+    auto option = default_european_call();
+    print(option);
+    
+    auto gbm_params = default_gbm_params();
+    print(gbm_params);
 
     auto price_bs = fink::pricers::bs_european_call(option, gbm_params);
     print_row("Black-Scholes analytical price", price_bs);
