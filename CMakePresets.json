@@ -10,6 +10,7 @@
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/win/conan_toolchain.cmake",
         "VENV_DIR":"${sourceDir}/.venv/win",
+        "ENABLE_CUDA": "ON",
         "ENABLE_CLANG_TIDY": "ON"
       },
       "vendor": {
@@ -27,6 +28,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/wsl/conan_toolchain.cmake",
         "VENV_DIR":"${sourceDir}/.venv/wsl",
+        "ENABLE_CUDA": "OFF",
         "ENABLE_CLANG_TIDY": "ON",
         "ENABLE_CLANG_FORMAT": "ON"
       }
@@ -40,6 +42,7 @@
         "CMAKE_BUILD_TYPE": "Release",
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/wsl/conan_toolchain.cmake",
         "VENV_DIR":"${sourceDir}/.venv/wsl",
+        "ENABLE_CUDA": "OFF",
         "ENABLE_CLANG_TIDY": "ON",
         "ENABLE_CLANG_FORMAT": "ON"
       }

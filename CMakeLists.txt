@@ -23,6 +23,7 @@ set(MODELS_LIB_NAME "fink-models")
 set(PRICERS_LIB_NAME "fink-pricers")
 set(RNG_LIB_NAME "fink-rng")
 
+option(ENABLE_CUDA "Enable CUDA backends" ON)
 option(ENABLE_WARNINGS "Enable to add warnings to a target." ON)
 option(ENABLE_WARNINGS_AS_ERRORS "Enable compiler warnings as errors" ON)
 
@@ -41,6 +42,7 @@ option(ENABLE_CMAKE_FORMAT "Enable to add cmake-format." ON)
 
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
 
+include(EnableCuda)
 include(Warnings)
 include(LTO)
 include(Sanitizer)
