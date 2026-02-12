@@ -1,47 +1,45 @@
-#include <array>
 #include <iostream>
 
-#include <fink/examples/defaults.hpp>
 #include <fink/examples/formatters.hpp>
-#include <fink/examples/utils.hpp>
+#include <fink/instruments/aliases.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/native/european_mc.hpp>
 
+using namespace fink::instruments;
 using namespace fink::examples;
 
 int main()
 {
-    std::cout << "Monte Carlo native\n\n";
+    const double spot = 100.0;
+    const double sigma = 0.1;
+    const double r = 0.05;
+    const double T = 1.5;
+    const double K = 120.0;
+    const size_t paths = 1'000'000;
 
-    auto option = default_european_call();
-    print(option);
+    const european_call option{
+        .expiry = T,
+        .payoff = call_payoff{.strike = K},
+    };
 
-    auto gbm_params = default_gbm_params();
+    const fink::models::gbm_params gbm_params{
+        .s0 = spot,
+        .r = r,
+        .sigma = sigma,
+    };
+
     print(gbm_params);
+    print(option);
 
     auto price_bs = fink::pricers::bs_european_call(option, gbm_params);
     print_row("Black-Scholes analytical price", price_bs);
     std::cout << '\n';
 
-    const std::array<size_t, 4> paths_set{100'000,
-                                          1'000'000,
-                                          5'000'000,
-                                          10'000'000};
-    for (auto paths : paths_set)
-    {
-        run_mc_benchmark(
-            option,
-            gbm_params,
-            paths,
-            [paths](auto const &opt, auto const &mdl) {
-                const fink::pricers::native::mc_config cfg{.paths = paths};
-                auto result =
-                    fink::pricers::native::price_european_mc(opt, mdl, cfg);
-                return example_result{
-                    .price = result.price,
-                    .stderr =
-                        result
-                            .stderr}; // TODO results native and seial with the same structure
-            });
-    }
+    const fink::pricers::native::mc_config mc_config{.paths = paths};
+    auto result =
+        fink::pricers::native::price_european_mc(option, gbm_params, mc_config);
+
+    std::cout << "Monte Carlo native (paths: " << format_paths(paths) << ")\n";
+    print_row("price:", result.price);
+    print_row("stderr:", result.stderr);
 }

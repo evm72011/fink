@@ -2,51 +2,51 @@
 #include <iostream>
 
 #include <fink/backends/cpu/mc_backend_serial.hpp>
-#include <fink/examples/defaults.hpp>
 #include <fink/examples/formatters.hpp>
-#include <fink/examples/utils.hpp>
 #include <fink/mc/config.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
 #include <fink/pricers/native/european_mc.hpp>
 
+using namespace fink::instruments;
 using namespace fink::examples;
 
 int main()
 {
-    std::cout << "Monte Carlo serial\n\n";
+    const double spot = 100.0;
+    const double sigma = 0.1;
+    const double r = 0.05;
+    const double T = 1.5;
+    const double K = 120.0;
+    const size_t paths = 1'000'000;
 
-    auto option = default_european_call();
-    print(option);
+    const european_call option{
+        .expiry = T,
+        .payoff = call_payoff{.strike = K},
+    };
 
-    auto gbm_params = default_gbm_params();
+    const fink::models::gbm_params gbm_params{
+        .s0 = spot,
+        .r = r,
+        .sigma = sigma,
+    };
+
     print(gbm_params);
+    print(option);
 
     auto price_bs = fink::pricers::bs_european_call(option, gbm_params);
     print_row("Black-Scholes analytical price", price_bs);
     std::cout << '\n';
 
-    const std::array<size_t, 4> paths_set{100'000,
-                                          1'000'000,
-                                          5'000'000,
-                                          10'000'000};
-    for (auto paths : paths_set)
-    {
-        run_mc_benchmark( // TODO the aim this code - example. But this wrapper makes it not clear - how exactly to use the lib.
-            option,
-            gbm_params,
-            paths,
-            [paths](auto const &opt, auto const &mdl) {
-                const fink::mc::mc_config cfg{.paths = paths};
-                const fink::backends::cpu::mc_backend_serial backend{};
-                auto result = fink::pricers::price_european_mc(opt,
-                                                               mdl,
-                                                               cfg.paths,
-                                                               backend);
-                const double df = std::exp(-mdl.r * opt.expiry);
-
-                return example_result{.price = result.mean * df,
-                                      .stderr = result.std_error * df};
-            });
-    }
+    const fink::mc::mc_config cfg{.paths = paths};
+    const fink::backends::cpu::mc_backend_serial backend{};
+    auto result = fink::pricers::price_european_mc(option,
+                                                   gbm_params,
+                                                   cfg.paths,
+                                                   backend);
+    const double df =
+        std::exp(-gbm_params.r * option.expiry); // TODO PV in pricer
+    std::cout << "Monte Carlo serial (paths: " << format_paths(paths) << ")\n";
+    print_row("price:", result.mean * df);
+    print_row("stderr:", result.std_error * df);
 }

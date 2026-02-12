@@ -7,12 +7,12 @@ namespace fink::examples
 {
 void print_row(std::string_view label, double value)
 {
-    constexpr int w = 50;
+    constexpr int w = 40;
     std::cout << std::left << std::setfill('.') << std::setw(w) << label
               << std::setfill(' ') << value << '\n';
 }
 
-void print(fink::models::gbm_params &params)
+void print(const fink::models::gbm_params &params)
 {
     std::cout << "Geometric Brownian motion parameters\n";
     print_row("Spot price", params.s0);
@@ -21,7 +21,7 @@ void print(fink::models::gbm_params &params)
     std::cout << '\n';
 }
 
-void print(fink::instruments::european_call &option)
+void print(const fink::instruments::european_call &option)
 {
     std::cout << "European call option\n";
     print_row("Time to maturity (years)", option.expiry);
