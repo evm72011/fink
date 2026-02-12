@@ -14,7 +14,7 @@ void print_row(std::string_view label, double value)
 
 void print(fink::models::gbm_params &params)
 {
-    std::cout << "geometric Brownian motion parameters\n";
+    std::cout << "Geometric Brownian motion parameters\n";
     print_row("Spot price", params.s0);
     print_row("Volatility (stddev)", params.sigma);
     print_row("Risk free rate", params.r);

@@ -43,9 +43,11 @@ int main()
                                                                mdl,
                                                                cfg.paths,
                                                                backend);
+                const double df = std::exp(-mdl.r * opt.expiry);
+
                 return example_result{
-                    .price = result.mean,
-                    .stderr = result.std_error
+                    .price = result.mean * df,
+                    .stderr = result.std_error * df
                 };
             });
     }

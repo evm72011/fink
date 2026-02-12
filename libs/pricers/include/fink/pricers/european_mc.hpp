@@ -24,8 +24,7 @@ template <typename Backend, typename Instrument, typename Model>
     auto sample = [&](std::size_t /*i*/, auto &rng) -> double {
         fink::rng::normal_rng n(rng);
         const double Z = n();
-        const double ST =
-            fink::models::gbm_terminal_price(model, inst.expiry, Z);
+        const double ST = fink::models::gbm_terminal_price(model, inst.expiry, Z);
         return inst.payoff(ST);
     };
 

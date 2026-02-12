@@ -32,7 +32,6 @@ public:
             const double x = std::forward<SampleFn>(sample)(i, rng);
             reducer.add(x);
         }
-
         return reducer.result();
     }
 };
