@@ -87,7 +87,7 @@ public:
      *
      * @param other Another online_stats instance.
      */
-    void merge(const online_stats& other) noexcept      // TODO Unit tests for merge
+    void merge(const online_stats &other) noexcept // TODO Unit tests for merge
     {
         if (other.n_ == 0)
             return;

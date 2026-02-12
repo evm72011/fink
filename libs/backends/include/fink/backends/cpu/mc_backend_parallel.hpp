@@ -23,14 +23,15 @@ namespace fink::backends::cpu
 class mc_backend_parallel
 {
 public:
-    explicit mc_backend_parallel(std::size_t threads = std::thread::hardware_concurrency()) noexcept
+    explicit mc_backend_parallel(
+        std::size_t threads = std::thread::hardware_concurrency()) noexcept
         : threads_(threads == 0 ? 1 : threads)
     {
     }
 
     template <typename SampleFn, typename Reducer>
-    [[nodiscard]] fink::mc::mc_result run(const fink::mc::mc_config& cfg,
-                                          SampleFn&& sample,
+    [[nodiscard]] fink::mc::mc_result run(const fink::mc::mc_config &cfg,
+                                          SampleFn &&sample,
                                           Reducer reducer) const
     {
         if (cfg.paths == 0)
@@ -57,7 +58,7 @@ public:
                 // Seed per thread (first parallel version; deterministic for fixed thread count).
                 fink::rng::pcg32 rng(cfg.seed + static_cast<std::uint64_t>(t));
 
-                auto& local = locals[t];
+                auto &local = locals[t];
 
                 for (std::size_t i = begin; i < end; ++i)
                 {
@@ -67,7 +68,7 @@ public:
             });
         }
 
-        for (auto& th : workers)
+        for (auto &th : workers)
             th.join();
 
         for (std::size_t t = 0; t < n_threads; ++t)

@@ -1,5 +1,5 @@
-#include <iostream>
 #include <iomanip>
+#include <iostream>
 
 #include <fink/examples/formatters.hpp>
 
@@ -36,5 +36,5 @@ std::string format_paths(size_t n)
     if (n >= 1'000)
         return std::to_string(n / 1'000) + "K";
     return std::to_string(n);
-}    
 }
+} // namespace fink::examples

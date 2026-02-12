@@ -24,14 +24,15 @@ template <typename Backend, typename Instrument, typename Model>
     auto sample = [&](std::size_t /*i*/, auto &rng) -> double {
         fink::rng::normal_rng n(rng);
         const double Z = n();
-        const double ST = fink::models::gbm_terminal_price(model, inst.expiry, Z);
+        const double ST =
+            fink::models::gbm_terminal_price(model, inst.expiry, Z);
         return inst.payoff(ST);
     };
 
-    // TODO: 
-    // Discount to present value logic here. 
+    // TODO:
+    // Discount to present value logic here.
     // New struct pricer_result mean -> price
-    // Add minimal std_err to mc_config to as additional condition for interruption 
+    // Add minimal std_err to mc_config to as additional condition for interruption
     // Optional: Benchmark info ?
     return fink::mc::run(cfg, std::forward<Backend>(backend), sample, reducer);
 }

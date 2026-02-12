@@ -22,7 +22,7 @@ public:
         stats_.add(x);
     }
 
-    void merge(const online_stats_reducer& other) noexcept
+    void merge(const online_stats_reducer &other) noexcept
     {
         stats_.merge(other.stats_);
     }

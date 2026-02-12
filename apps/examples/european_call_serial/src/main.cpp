@@ -15,10 +15,10 @@ using namespace fink::examples;
 int main()
 {
     std::cout << "Monte Carlo serial\n\n";
-    
+
     auto option = default_european_call();
     print(option);
-    
+
     auto gbm_params = default_gbm_params();
     print(gbm_params);
 
@@ -32,7 +32,7 @@ int main()
                                           10'000'000};
     for (auto paths : paths_set)
     {
-        run_mc_benchmark(  // TODO the aim this code - example. But this wrapper makes it not clear - how exactly to use the lib. 
+        run_mc_benchmark( // TODO the aim this code - example. But this wrapper makes it not clear - how exactly to use the lib.
             option,
             gbm_params,
             paths,
@@ -45,10 +45,8 @@ int main()
                                                                backend);
                 const double df = std::exp(-mdl.r * opt.expiry);
 
-                return example_result{
-                    .price = result.mean * df,
-                    .stderr = result.std_error * df
-                };
+                return example_result{.price = result.mean * df,
+                                      .stderr = result.std_error * df};
             });
     }
 }

@@ -15,7 +15,7 @@ int main()
 
     auto option = default_european_call();
     print(option);
-    
+
     auto gbm_params = default_gbm_params();
     print(gbm_params);
 
@@ -39,8 +39,9 @@ int main()
                     fink::pricers::native::price_european_mc(opt, mdl, cfg);
                 return example_result{
                     .price = result.price,
-                    .stderr = result.stderr
-                };  // TODO results native and seial with the same structure
+                    .stderr =
+                        result
+                            .stderr}; // TODO results native and seial with the same structure
             });
     }
 }

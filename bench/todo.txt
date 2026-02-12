@@ -1,11 +1,1 @@
-├── bench/
-│   # Benchmarks (Google Benchmark). Это НЕ unit-tests, а замеры скорости.
-│   ├── CMakeLists.txt
-│   │   # target fink-bench. Линкуется с нужными libs.
-│   └── src/
-│       ├── bench_mc_european.cpp
-│       │   # Измеряем throughput: paths/sec, price/sec, влияние antithetic/control variate.
-│       ├── bench_rng_normals.cpp
-│       │   # Измеряем генерацию нормальных: Box-Muller vs Ziggurat и т.п.
-│       └── bench_cuda_paths.cu
-│           # Если CUDA включена: замер генерации путей на GPU.
+Google Benchmark

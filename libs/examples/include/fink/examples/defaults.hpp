@@ -27,5 +27,4 @@ inline fink::instruments::european_call default_european_call()
 }
 
 
-
 } // namespace fink::examples

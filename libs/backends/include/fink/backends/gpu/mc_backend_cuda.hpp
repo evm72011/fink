@@ -26,8 +26,9 @@ public:
     {
     }
 
-    [[nodiscard]] fink::mc::mc_result price_european_call_gbm(const fink::mc::mc_config& cfg,
-                                                              const european_gbm_call_params& p) const;
+    [[nodiscard]] fink::mc::mc_result price_european_call_gbm(
+        const fink::mc::mc_config &cfg,
+        const european_gbm_call_params &p) const;
 
 private:
     std::size_t block_size_{256};
