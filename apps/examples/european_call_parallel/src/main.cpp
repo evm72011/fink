@@ -44,7 +44,7 @@ int main()
                                                    gbm_params,
                                                    cfg.paths,
                                                    backend);
-    const double df = std::exp(-gbm_params.r * option.expiry);
+    const double df = std::exp(-gbm_params.r * option.expiry);  // TODO pv in pricer
 
     std::cout << "Monte Carlo parallel (paths: " << format_paths(paths)
               << ")\n";
