@@ -22,6 +22,11 @@ public:
         stats_.add(x);
     }
 
+    void merge(const online_stats_reducer& other) noexcept
+    {
+        stats_.merge(other.stats_);
+    }
+
     /// Produce the final Monte Carlo result.
     [[nodiscard]] mc_result result() const noexcept
     {

@@ -81,6 +81,35 @@ public:
     }
 
     /**
+     * @brief Merge statistics from another accumulator.
+     *
+     * Combines two independent Welford accumulators.
+     *
+     * @param other Another online_stats instance.
+     */
+    void merge(const online_stats& other) noexcept      // TODO Unit tests for merge
+    {
+        if (other.n_ == 0)
+            return;
+
+        if (n_ == 0)
+        {
+            *this = other;
+            return;
+        }
+
+        const double n1 = static_cast<double>(n_);
+        const double n2 = static_cast<double>(other.n_);
+        const double n = n1 + n2;
+
+        const double delta = other.mean_ - mean_;
+
+        mean_ = (n1 * mean_ + n2 * other.mean_) / n;
+        m2_ = m2_ + other.m2_ + delta * delta * (n1 * n2 / n);
+        n_ += other.n_;
+    }
+
+    /**
      * @brief Number of samples processed.
      */
     [[nodiscard]] std::size_t count() const noexcept

@@ -1,2 +1,3 @@
 add_subdirectory(european_call_native)
+add_subdirectory(european_call_parallel)
 add_subdirectory(european_call_serial)

@@ -1,7 +1,7 @@
 #include <array>
 #include <iostream>
 
-#include <fink/backends/cpu/mc_backend_serial.hpp>
+#include <fink/backends/cpu/mc_backend_parallel.hpp>
 #include <fink/examples/defaults.hpp>
 #include <fink/examples/formatters.hpp>
 #include <fink/examples/utils.hpp>
@@ -14,7 +14,7 @@ using namespace fink::examples;
 
 int main()
 {
-    std::cout << "Monte Carlo serial\n\n";
+    std::cout << "Monte Carlo parallel\n\n";
     
     auto option = default_european_call();
     print(option);
@@ -38,7 +38,7 @@ int main()
             paths,
             [paths](auto const &opt, auto const &mdl) {
                 const fink::mc::mc_config cfg{.paths = paths};
-                const fink::backends::cpu::mc_backend_serial backend{};
+                const auto backend = fink::backends::cpu::mc_backend_parallel(10);
                 auto result = fink::pricers::price_european_mc(opt,
                                                                mdl,
                                                                cfg.paths,
