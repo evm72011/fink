@@ -38,7 +38,7 @@ build:
 	fi; \
 	printf "$(GREEN)Build OK$(RESET)\n"
 
-run: build example-parallel
+run: build example-cuda
 
 example-%:
 	@./$(BUILD_DIR)/apps/examples/$(EXAMPLE)_$*/example-$(subst _,-,$(EXAMPLE))-$*; rc=$$?; \
