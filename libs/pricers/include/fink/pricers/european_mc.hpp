@@ -31,7 +31,7 @@ template <typename Backend, typename Instrument, typename Model>
         return inst.payoff(ST);
     };
 
-    auto mc_result = fink::mc::run(cfg, std::forward<Backend>(backend), sample, reducer);
+    const auto mc_result = fink::mc::run(cfg, std::forward<Backend>(backend), sample, reducer);
     const double df = fink::math::discount_continuous(model.r, inst.expiry);
     return pricer_result {
         .price = df * mc_result.mean,

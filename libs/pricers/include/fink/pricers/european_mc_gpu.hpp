@@ -6,11 +6,13 @@
 #include <fink/instruments/concepts.hpp>
 #include <fink/mc/config.hpp>
 #include <fink/models/gbm.hpp>
+#include <fink/math/discount.hpp>
+#include <fink/pricers/pricer_result.hpp>
 
 namespace fink::pricers
 {
 template <fink::instruments::european_option_like Option>
-double price_european_mc_cuda(
+[[nodiscard]] pricer_result price_european_mc_cuda(
     const Option &opt,
     const fink::models::gbm_params &model,
     const fink::mc::mc_config &cfg,
@@ -24,8 +26,11 @@ double price_european_mc_cuda(
         .strike = opt.payoff.strike,
     };
 
-    const auto r = backend.run_european_call_gbm(cfg, p);
-    const double df = std::exp(-model.r * opt.expiry);
-    return df * r.mean;
+    auto mc_result = backend.price_european_call_gbm(cfg, p);
+    const double df = fink::math::discount_continuous(model.r, opt.expiry);
+    return pricer_result {
+        .price = df * mc_result.mean,
+        .std_err = df * mc_result.std_err,
+    };
 }
 } // namespace fink::pricers

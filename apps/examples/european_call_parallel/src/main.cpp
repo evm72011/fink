@@ -6,7 +6,6 @@
 #include <fink/mc/config.hpp>
 #include <fink/pricers/black_scholes.hpp>
 #include <fink/pricers/european_mc.hpp>
-#include <fink/pricers/native/european_mc.hpp>
 
 using namespace fink::instruments;
 using namespace fink::examples;
