@@ -1,9 +1,9 @@
 set(LIB_NAME ${BACKENDS_LIB_NAME})
 
-add_library(${LIB_NAME} INTERFACE)
+add_library(${LIB_NAME} STATIC)
 
 target_include_directories(${LIB_NAME}
-                           INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
+                           PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include)
 
 if(ENABLE_CUDA)
     target_sources(${LIB_NAME} PRIVATE src/gpu/mc_backend_cuda.cu)
@@ -11,6 +11,8 @@ if(ENABLE_CUDA)
     target_link_libraries(${LIB_NAME} PRIVATE CUDA::cudart CUDA::curand)
 
     target_compile_definitions(${LIB_NAME} PUBLIC CUDA_ENABLED=1)
+else()
+    target_sources(${LIB_NAME} PRIVATE src/gpu/stub.cu)
 endif()
 
 target_set_warnings(
