@@ -9,9 +9,11 @@
 
 #include <fink/instruments/concepts.hpp>
 #include <fink/math/online_stats.hpp>
+#include <fink/math/discount.hpp>
 #include <fink/models/gbm.hpp>
 #include <fink/rng/normal_rng.hpp>
 #include <fink/rng/pcg32.hpp>
+#include <fink/pricers/pricer_result.hpp>
 
 namespace fink::pricers::native
 {
@@ -26,18 +28,6 @@ struct mc_config
 
     /// Seed for the random number generator.
     std::uint64_t seed{42};
-};
-
-/**
- * @brief Result of a Monte Carlo pricing run.
- */
-struct mc_result
-{
-    /// Estimated option price.
-    double price{};
-
-    /// Standard error of the estimator.
-    double stderr{};
 };
 
 /**
@@ -71,7 +61,7 @@ struct mc_result
  *   analytic Black–Scholes pricing.
  */
 template <fink::instruments::european_option_like Option>
-[[nodiscard]] inline mc_result price_european_mc(
+[[nodiscard]] inline pricer_result price_european_mc(
     const Option &opt,
     const fink::models::gbm_params &model,
     const mc_config &cfg) noexcept
@@ -89,11 +79,11 @@ template <fink::instruments::european_option_like Option>
         stats.add(payoff);
     }
 
-    const double df = std::exp(-model.r * opt.expiry);
+    const double df = fink::math::discount_continuous(model.r, opt.expiry);
 
-    return mc_result{
+    return pricer_result{
         .price = df * stats.mean(),
-        .stderr = df * stats.stderr(),
+        .std_error = df * stats.stderr(),
     };
 }
 

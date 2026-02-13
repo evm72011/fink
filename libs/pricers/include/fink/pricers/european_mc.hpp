@@ -6,12 +6,14 @@
 #include <fink/mc/reducer.hpp>
 #include <fink/mc/result.hpp>
 #include <fink/rng/normal_rng.hpp>
+#include <fink/math/discount.hpp>
+#include <fink/pricers/pricer_result.hpp>
 
 namespace fink::pricers
 {
 
 template <typename Backend, typename Instrument, typename Model>
-[[nodiscard]] inline fink::mc::mc_result price_european_mc(
+[[nodiscard]] inline pricer_result price_european_mc(
     const Instrument &inst,
     const Model &model,
     std::size_t paths,
@@ -29,12 +31,12 @@ template <typename Backend, typename Instrument, typename Model>
         return inst.payoff(ST);
     };
 
-    // TODO:
-    // Discount to present value logic here.
-    // New struct pricer_result mean -> price
-    // Add minimal std_err to mc_config to as additional condition for interruption
-    // Optional: Benchmark info ?
-    return fink::mc::run(cfg, std::forward<Backend>(backend), sample, reducer);
+    auto mc_result = fink::mc::run(cfg, std::forward<Backend>(backend), sample, reducer);
+    const double df = fink::math::discount_continuous(model.r, inst.expiry);
+    return pricer_result {
+        .price = df * mc_result.mean,
+        .std_error = df * mc_result.std_error,
+    };
 }
 
 } // namespace fink::pricers
