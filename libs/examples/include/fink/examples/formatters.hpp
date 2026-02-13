@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iomanip>
+#include <iostream>
 #include <string_view>
 
 #include <fink/instruments/aliases.hpp>
@@ -7,7 +9,12 @@
 
 namespace fink::examples
 {
-void print_row(std::string_view label, double value);
+template <typename T>  
+void print_row(std::string_view label, T value, int width = 40)
+{
+    std::cout << std::left << std::setfill('.') << std::setw(width) << label
+              << std::setfill(' ') << value << '\n';
+};
 
 void print(const fink::models::gbm_params &params);
 

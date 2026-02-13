@@ -1,17 +1,7 @@
-#include <iomanip>
-#include <iostream>
-
 #include <fink/examples/formatters.hpp>
 
 namespace fink::examples
 {
-void print_row(std::string_view label, double value)
-{
-    constexpr int w = 40;
-    std::cout << std::left << std::setfill('.') << std::setw(w) << label
-              << std::setfill(' ') << value << '\n';
-}
-
 void print(const fink::models::gbm_params &params)
 {
     std::cout << "Geometric Brownian motion parameters\n";

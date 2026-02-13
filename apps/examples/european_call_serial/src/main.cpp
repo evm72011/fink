@@ -46,7 +46,9 @@ int main()
                                                    backend);
     const double df =
         std::exp(-gbm_params.r * option.expiry); // TODO PV in pricer
-    std::cout << "Monte Carlo serial (paths: " << format_paths(paths) << ")\n";
+
+    std::cout << "Monte Carlo serial\n";
+    print_row("paths:", format_paths(paths));
     print_row("price:", result.mean * df);
     print_row("stderr:", result.std_error * df);
 }

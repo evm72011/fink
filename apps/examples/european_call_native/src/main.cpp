@@ -39,7 +39,8 @@ int main()
     auto result =
         fink::pricers::native::price_european_mc(option, gbm_params, mc_config);
 
-    std::cout << "Monte Carlo native (paths: " << format_paths(paths) << ")\n";
+    std::cout << "Monte Carlo native\n";
+    print_row("paths:", format_paths(paths));
     print_row("price:", result.price);
     print_row("stderr:", result.stderr);
 }

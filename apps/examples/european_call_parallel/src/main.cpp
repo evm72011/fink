@@ -19,6 +19,7 @@ int main()
     const double T = 1.5;
     const double K = 120.0;
     const size_t paths = 1'000'000;
+    const size_t threads = 10;
 
     const european_call option{
         .expiry = T,
@@ -39,15 +40,16 @@ int main()
     std::cout << '\n';
 
     const fink::mc::mc_config cfg{.paths = paths};
-    const auto backend = fink::backends::cpu::mc_backend_parallel(10);
+    const auto backend = fink::backends::cpu::mc_backend_parallel(threads);
     auto result = fink::pricers::price_european_mc(option,
                                                    gbm_params,
                                                    cfg.paths,
                                                    backend);
     const double df = std::exp(-gbm_params.r * option.expiry);  // TODO pv in pricer
 
-    std::cout << "Monte Carlo parallel (paths: " << format_paths(paths)
-              << ")\n";
+    std::cout << "Monte Carlo parallel\n";
+    print_row("paths:", format_paths(paths));
+    print_row("threads:", threads);
     print_row("price:", result.mean * df);
     print_row("stderr:", result.std_error * df);
 }
