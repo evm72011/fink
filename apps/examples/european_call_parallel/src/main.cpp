@@ -50,5 +50,5 @@ int main()
     print_row("paths:", format_paths(paths));
     print_row("threads:", threads);
     print_row("price:", result.price);
-    print_row("stderr:", result.std_error);
+    print_row("stderr:", result.stderr);
 }

@@ -48,5 +48,5 @@ int main()
     std::cout << "Monte Carlo serial\n";
     print_row("paths:", format_paths(paths));
     print_row("price:", result.price);
-    print_row("stderr:", result.std_error);
+    print_row("stderr:", result.stderr);
 }

@@ -35,7 +35,7 @@ TEST(Pricers_European_MC, DeterministicWhenSigmaZero_CallMatchesClosedForm)
     const double bs = bs_european_call(opt, model);
 
     EXPECT_NEAR(mc.price, bs, eps_tight);
-    EXPECT_NEAR(mc.std_error, 0.0, eps_tight);
+    EXPECT_NEAR(mc.stderr, 0.0, eps_tight);
 }
 
 TEST(Pricers_European_MC, DeterministicWhenSigmaZero_PutMatchesClosedForm)
@@ -49,7 +49,7 @@ TEST(Pricers_European_MC, DeterministicWhenSigmaZero_PutMatchesClosedForm)
     const double bs = bs_european_put(opt, model);
 
     EXPECT_NEAR(mc.price, bs, eps_tight);
-    EXPECT_NEAR(mc.std_error, 0.0, eps_tight);
+    EXPECT_NEAR(mc.stderr, 0.0, eps_tight);
 }
 
 TEST(Pricers_European_MC, ZeroMaturityEqualsIntrinsicValue_CallAndZeroError)
@@ -62,7 +62,7 @@ TEST(Pricers_European_MC, ZeroMaturityEqualsIntrinsicValue_CallAndZeroError)
     const auto mc = price_european_mc(opt, model, cfg);
 
     EXPECT_NEAR(mc.price, 20.0, eps_tight);
-    EXPECT_NEAR(mc.std_error, 0.0, eps_tight);
+    EXPECT_NEAR(mc.stderr, 0.0, eps_tight);
 }
 
 TEST(Pricers_European_MC, ReproducibleForSameSeed)
@@ -78,7 +78,7 @@ TEST(Pricers_European_MC, ReproducibleForSameSeed)
     const auto b = price_european_mc(opt, model, cfg2);
 
     EXPECT_DOUBLE_EQ(a.price, b.price);
-    EXPECT_DOUBLE_EQ(a.std_error, b.std_error);
+    EXPECT_DOUBLE_EQ(a.stderr, b.stderr);
 }
 
 TEST(Pricers_European_MC, DifferentSeedsUsuallyGiveDifferentEstimates)
@@ -108,11 +108,11 @@ TEST(Pricers_European_MC, StandardErrorDecreasesWithMorePaths)
     const auto large =
         price_european_mc(opt, model, mc_config{.paths = 200'000, .seed = 123});
 
-    EXPECT_LT(large.std_error, small.std_error);
+    EXPECT_LT(large.stderr, small.stderr);
 
     const double expected_ratio =
         std::sqrt(20'000.0 / 200'000.0); // sqrt(N_small/N_large)
-    const double ratio = large.std_error / small.std_error;
+    const double ratio = large.stderr / small.stderr;
 
     EXPECT_NEAR(ratio, expected_ratio, 0.15 * expected_ratio);
 }
@@ -133,6 +133,6 @@ TEST(Pricers_European_MC, PutCallParityHoldsWithinMonteCarloError)
 
     const double rhs = model.s0 - K * std::exp(-model.r * T);
 
-    const double tol = 5.0 * (c.std_error + p.std_error);
+    const double tol = 5.0 * (c.stderr + p.stderr);
     EXPECT_NEAR(c.price - p.price, rhs, tol);
 }

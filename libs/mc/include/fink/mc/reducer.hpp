@@ -33,7 +33,7 @@ public:
         mc_result r;
         r.mean = stats_.mean();
         r.variance = stats_.variance();
-        r.std_error = stats_.stderr();
+        r.stderr = stats_.stderr();
         r.paths = stats_.count();
         return r;
     }
