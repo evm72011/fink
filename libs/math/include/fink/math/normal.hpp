@@ -28,7 +28,7 @@ namespace fink::math
  * - The standard normal distribution has mean 0 and variance 1.
  * - This function is symmetric: \f$\varphi(x) = \varphi(-x)\f$.
  */
-[[nodiscard]] constexpr double norm_pdf(double x) noexcept
+[[nodiscard]] double norm_pdf(double x) noexcept
 {
     constexpr double inv_sqrt_2pi = 0.39894228040143267794; // 1/sqrt(2π)
     return inv_sqrt_2pi * std::exp(-0.5 * x * x);

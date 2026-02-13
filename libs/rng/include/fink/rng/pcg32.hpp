@@ -58,7 +58,7 @@ public:
         auto xorshifted =
             static_cast<std::uint32_t>(((old >> 18u) ^ old) >> 27u);
         auto rot = static_cast<std::uint32_t>(old >> 59u);
-        return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
+        return (xorshifted >> rot) | (xorshifted << ((0u - rot) & 31));
     }
 
     /**

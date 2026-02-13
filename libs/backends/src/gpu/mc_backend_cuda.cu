@@ -1,6 +1,7 @@
 #include <cmath>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 
 #include <cuda_runtime.h>
 #include <curand_kernel.h>
@@ -96,7 +97,7 @@ inline void cuda_check(cudaError_t e)
 namespace fink::backends::gpu
 {
 
-fink::mc::mc_result mc_backend_cuda::run_european_call_gbm(const fink::mc::mc_config& cfg,
+fink::mc::mc_result mc_backend_cuda::price_european_call_gbm(const fink::mc::mc_config& cfg,
                                                            const european_gbm_call_params& p) const
 {
     if (cfg.paths == 0)

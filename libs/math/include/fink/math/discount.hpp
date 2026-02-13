@@ -24,7 +24,7 @@ namespace fink::math
  * @param r Continuously compounded interest rate.
  * @param t Time to maturity in years.
  */
-[[nodiscard]] constexpr double discount_continuous(double r, double t) noexcept
+[[nodiscard]] double discount_continuous(double r, double t) noexcept
 {
     return std::exp(-r * t);
 }
@@ -51,7 +51,7 @@ namespace fink::math
  * - Other compounding frequencies (monthly, quarterly, etc.)
  *   should be converted to an effective or continuous rate before use.
  */
-[[nodiscard]] constexpr double discount_discrete(double r, double t) noexcept
+[[nodiscard]] double discount_discrete(double r, double t) noexcept
 {
     return 1.0 / std::pow(1.0 + r, t);
 }

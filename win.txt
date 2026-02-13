@@ -3,3 +3,5 @@ Remove-Item build\win -Recurse -Force
 .venv\win\Scripts\conan.exe install . -s build_type=Debug -s compiler.cppstd=23 --output-folder=build/win --build=missing
 
 cmake --preset win-msvc
+
+cmake --build --preset win-msvc-debug

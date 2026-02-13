@@ -1,4 +1,4 @@
-#include <cmath>
+#include <algorithm>
 
 #include <fink/math/normal.hpp>
 #include <fink/pricers/black_scholes.hpp>

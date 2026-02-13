@@ -98,6 +98,8 @@ function(target_set_warnings)
         set(WARNINGS ${GCC_WARNINGS})
     endif()
 
-    target_compile_options(${TSW_TARGET} ${_scope} ${WARNINGS})
+    target_compile_options(${TSW_TARGET} ${_scope}
+    $<$<COMPILE_LANGUAGE:CXX>:${WARNINGS}>
+    )
 
 endfunction(target_set_warnings)
