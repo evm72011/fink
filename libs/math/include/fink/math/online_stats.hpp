@@ -35,7 +35,7 @@ namespace fink::math
  * and the standard error of the mean:
  *
  * \f[
- *   \text{stderr} = \frac{s}{\sqrt{n}}
+ *   \text{std_err} = \frac{s}{\sqrt{n}}
  * \f]
  *
  * This estimator is numerically stable and suitable for Monte Carlo
@@ -151,7 +151,7 @@ public:
      *   \frac{s}{\sqrt{n}}
      * \f]
      */
-    [[nodiscard]] double stderr() const noexcept
+    [[nodiscard]] double std_err() const noexcept
     {
         return (n_ > 0) ? stddev() / std::sqrt(static_cast<double>(n_)) : 0.0;
     }

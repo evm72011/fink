@@ -14,7 +14,7 @@ TEST(Math_OnlineStats, EmptyStats)
     EXPECT_DOUBLE_EQ(s.mean(), 0.0);
     EXPECT_DOUBLE_EQ(s.variance(), 0.0);
     EXPECT_DOUBLE_EQ(s.stddev(), 0.0);
-    EXPECT_DOUBLE_EQ(s.stderr(), 0.0);
+    EXPECT_DOUBLE_EQ(s.std_err(), 0.0);
 }
 
 TEST(Math_OnlineStats, SingleValue)
@@ -26,7 +26,7 @@ TEST(Math_OnlineStats, SingleValue)
     EXPECT_DOUBLE_EQ(s.mean(), 5.0);
     EXPECT_DOUBLE_EQ(s.variance(), 0.0);
     EXPECT_DOUBLE_EQ(s.stddev(), 0.0);
-    EXPECT_DOUBLE_EQ(s.stderr(), 0.0);
+    EXPECT_DOUBLE_EQ(s.std_err(), 0.0);
 }
 
 TEST(Math_OnlineStats, SimpleSequence)

@@ -35,7 +35,7 @@ struct test_backend
 };
 } // namespace
 
-TEST(mc_engine, constant_sample_mean_variance_stderr)
+TEST(mc_engine, constant_sample_mean_variance_std_err)
 {
     const fink::mc::mc_config cfg{.paths = 10, .seed = 42};
 
@@ -51,7 +51,7 @@ TEST(mc_engine, constant_sample_mean_variance_stderr)
     EXPECT_EQ(r.paths, 10u);
     EXPECT_DOUBLE_EQ(r.mean, 3.0);
     EXPECT_DOUBLE_EQ(r.variance, 0.0);
-    EXPECT_DOUBLE_EQ(r.stderr, 0.0);
+    EXPECT_DOUBLE_EQ(r.std_err, 0.0);
 }
 
 TEST(mc_engine, sample_uses_index_and_seed_is_passed)
@@ -72,5 +72,5 @@ TEST(mc_engine, sample_uses_index_and_seed_is_passed)
     EXPECT_EQ(r.paths, 5u);
     EXPECT_DOUBLE_EQ(r.mean, 9.0);
     EXPECT_GT(r.variance, 0.0);
-    EXPECT_GT(r.stderr, 0.0);
+    EXPECT_GT(r.std_err, 0.0);
 }

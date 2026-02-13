@@ -35,7 +35,7 @@ template <typename Backend, typename Instrument, typename Model>
     const double df = fink::math::discount_continuous(model.r, inst.expiry);
     return pricer_result {
         .price = df * mc_result.mean,
-        .stderr = df * mc_result.stderr,
+        .std_err = df * mc_result.std_err,
     };
 }
 

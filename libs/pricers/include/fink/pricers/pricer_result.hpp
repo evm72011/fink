@@ -11,6 +11,6 @@ struct pricer_result
     double price{};
 
     /// Standard error of the estimator.
-    double stderr{};
+    double std_err{};
 };
 }

@@ -83,7 +83,7 @@ template <fink::instruments::european_option_like Option>
 
     return pricer_result{
         .price = df * stats.mean(),
-        .stderr = df * stats.stderr(),
+        .std_err = df * stats.std_err(),
     };
 }
 

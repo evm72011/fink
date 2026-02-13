@@ -21,7 +21,7 @@ struct mc_result
     double variance{0.0};
 
     /// Standard error of the mean.
-    double stderr{0.0};
+    double std_err{0.0};
 
     /// Number of simulated paths used in the estimate.
     std::size_t paths{0};

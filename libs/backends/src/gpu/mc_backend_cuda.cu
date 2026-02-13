@@ -159,12 +159,12 @@ fink::mc::mc_result mc_backend_cuda::price_european_call_gbm(const fink::mc::mc_
         if (var < 0.0) var = 0.0;                             // numeric guard
     }
 
-    const double stderr = (cfg.paths > 0) ? (std::sqrt(var) / std::sqrt(n)) : 0.0;
+    const double std_err = (cfg.paths > 0) ? (std::sqrt(var) / std::sqrt(n)) : 0.0;
 
     fink::mc::mc_result r;
     r.mean = mean;
     r.variance = var;
-    r.stderr = stderr;
+    r.std_err = std_err;
     r.paths = cfg.paths;
     return r;
 }
