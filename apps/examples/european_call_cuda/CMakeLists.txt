@@ -9,8 +9,6 @@ add_executable(${EXE_NAME} ${EXE_SOURCES})
 
 target_link_libraries(${EXE_NAME} PRIVATE ${ALL_LIBS})
 
-target_compile_definitions(${EXE_NAME} PUBLIC CUDA_ENABLED=1)
-
 target_set_warnings(
     TARGET
     ${EXE_NAME}
