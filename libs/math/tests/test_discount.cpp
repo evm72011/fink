@@ -1,6 +1,7 @@
 #include <fink/math/discount.hpp>
 #include <gtest/gtest.h>
 
+#include <numbers>
 #include <array>
 #include <vector>
 

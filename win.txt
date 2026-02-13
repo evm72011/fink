@@ -5,3 +5,7 @@ Remove-Item build\win -Recurse -Force
 cmake --preset win-msvc
 
 cmake --build --preset win-msvc-debug
+
+ctest --test-dir build/win --output-on-failure
+
+.\build\win\apps\examples\european_call_parallel\Debug\example-european-call-parallel.exe
