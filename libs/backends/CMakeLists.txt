@@ -13,7 +13,7 @@ else()
 endif()
 
 target_sources(${LIB_NAME} PRIVATE ${BACKENDS_SOURCES})
-target_link_libraries(${LIB_NAME} PUBLIC ${MC_LIB_NAME})
+target_link_libraries(${LIB_NAME} PRIVATE ${MC_LIB_NAME} ${INSTRUMENTS_LIB_NAME})
 
 target_set_warnings(
     TARGET

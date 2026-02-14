@@ -7,23 +7,18 @@
 #include <curand_kernel.h>
 
 #include <fink/backends/gpu/mc_backend_cuda.hpp>
+#include <fink/instruments/options.hpp>
 
 namespace
 {
-
-__device__ inline double payoff_call(double st, double k) noexcept
-{
-    const double x = st - k;
-    return x > 0.0 ? x : 0.0;
-}
-
-__global__ void european_call_gbm_kernel(std::uint64_t seed,
+template<class Payoff>
+__global__ void european_call_gbm_kernel(Payoff payoff,
+                                        std::uint64_t seed,
                                         std::size_t n,
                                         double s0,
                                         double r,
                                         double sigma,
                                         double t,
-                                        double strike,
                                         double* out_sum,
                                         double* out_sumsq)
 {
@@ -52,7 +47,7 @@ __global__ void european_call_gbm_kernel(std::uint64_t seed,
         const double z = curand_normal_double(&state);
 
         const double st = s0 * std::exp(drift + vol * z);
-        const double pf = payoff_call(st, strike);
+        const double pf = payoff(st);
 
         local_sum += pf;
         local_sumsq += pf * pf;
@@ -120,16 +115,18 @@ fink::mc::mc_result mc_backend_cuda::price_european_call_gbm(const fink::mc::mc_
 
     const std::size_t shmem_bytes = 2 * block * sizeof(double);
 
+    fink::instruments::call_payoff payoff{p.strike};
+
     european_call_gbm_kernel<<<static_cast<unsigned int>(grid),
                               static_cast<unsigned int>(block),
                               shmem_bytes>>>(
+        payoff,                                
         static_cast<std::uint64_t>(cfg.seed),
         cfg.paths,
         p.s0,
         p.r,
         p.sigma,
         p.t,
-        p.strike,
         d_sum,
         d_sumsq);
 
