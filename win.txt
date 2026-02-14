@@ -8,6 +8,10 @@ cmake --build --preset win-msvc-debug
 
 ctest --test-dir build/win --output-on-failure
 
+.\build\win\apps\examples\european_call_native\Debug\example-european-call-native.exe
+
 .\build\win\apps\examples\european_call_parallel\Debug\example-european-call-parallel.exe
 
 .\build\win\apps\examples\european_call_cuda\Debug\example-european-call-cuda.exe
+
+.\build\win\apps\examples\european_call_serial\Debug\example-european-call-serial.exe
