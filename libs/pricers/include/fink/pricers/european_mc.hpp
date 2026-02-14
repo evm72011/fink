@@ -12,6 +12,9 @@
 namespace fink::pricers
 {
 
+// TODO: Currently supports European-style pricing only (payoff at maturity).
+//       Make this universal: rename to price_mc(...) and extend to other
+//       exercise styles (e.g., American/Bermudan) and path-dependent payoffs.
 template <typename Backend, typename Instrument, typename Model>
 [[nodiscard]] inline pricer_result price_european_mc(
     const Instrument &inst,
