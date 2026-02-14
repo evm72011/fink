@@ -1,4 +1,5 @@
 add_subdirectory(backends)
+add_subdirectory(cuda)
 add_subdirectory(examples)
 add_subdirectory(instruments)
 add_subdirectory(math)
