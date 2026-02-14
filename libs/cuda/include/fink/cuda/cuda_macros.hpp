@@ -1,6 +1,6 @@
 #pragma once
 
-#if defined(ENABLE_CUDA) 
+#if defined(CUDA_ENABLED) && defined(__CUDACC__)
     #define CUDA_HD __host__ __device__ 
     #define CUDA_D __device__ 
     #define CUDA_H __host__ 

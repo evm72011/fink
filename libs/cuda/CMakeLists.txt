@@ -5,7 +5,7 @@ add_library(${LIB_NAME} INTERFACE)
 target_include_directories(${LIB_NAME} INTERFACE ${CMAKE_CURRENT_LIST_DIR}/include)
 
 if(ENABLE_CUDA)
-    target_compile_definitions(${LIB_NAME} INTERFACE ENABLE_CUDA=1)
+    target_compile_definitions(${LIB_NAME} INTERFACE CUDA_ENABLED=1)
 endif()
 
 target_set_warnings(

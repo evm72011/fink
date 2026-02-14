@@ -4,6 +4,8 @@
  */
 #pragma once
 
+#include <fink/cuda/cuda_macros.hpp>
+
 namespace fink::instruments
 {
 
@@ -65,7 +67,7 @@ struct call_payoff
      * @param spot Spot price of the underlying.
      * @return Payoff value.
      */
-    double operator()(double spot) const noexcept
+    CUDA_HD double operator()(double spot) const noexcept
     {
         return spot > strike ? (spot - strike) : 0.0;
     }
@@ -87,7 +89,7 @@ struct put_payoff
      * @param spot Spot price of the underlying.
      * @return Payoff value.
      */
-    double operator()(double spot) const noexcept
+    CUDA_HD double operator()(double spot) const noexcept
     {
         return spot < strike ? (strike - spot) : 0.0;
     }
