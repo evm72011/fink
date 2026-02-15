@@ -42,7 +42,7 @@ int main()
     const fink::backends::cpu::mc_backend_serial backend{};
     auto result = fink::pricers::price_european_mc(option,
                                                    gbm_params,
-                                                   cfg.paths,
+                                                   cfg,
                                                    backend);
 
     std::cout << "Monte Carlo serial\n";

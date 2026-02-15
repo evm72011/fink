@@ -42,7 +42,7 @@ int main()
     const auto backend = fink::backends::cpu::mc_backend_parallel(threads);
     auto result = fink::pricers::price_european_mc(option,
                                                    gbm_params,
-                                                   cfg.paths,
+                                                   cfg,
                                                    backend);
 
     std::cout << "Monte Carlo parallel\n";

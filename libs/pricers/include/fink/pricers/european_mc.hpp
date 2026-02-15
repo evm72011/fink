@@ -2,6 +2,7 @@
 
 #include <utility>
 
+#include <fink/mc/config.hpp>
 #include <fink/mc/engine.hpp>
 #include <fink/mc/reducer.hpp>
 #include <fink/mc/result.hpp>
@@ -19,11 +20,9 @@ template <typename Backend, typename Instrument, typename Model>
 [[nodiscard]] inline pricer_result price_european_mc(
     const Instrument &inst,
     const Model &model,
-    std::size_t paths,
+    const fink::mc::mc_config &cfg,
     Backend &&backend)
 {
-    const fink::mc::mc_config cfg{paths};
-
     const fink::mc::online_stats_reducer reducer{};
 
     auto sample = [&](std::size_t /*i*/, auto &rng) -> double {
