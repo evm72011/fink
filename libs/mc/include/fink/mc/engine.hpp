@@ -38,3 +38,6 @@ template <typename Backend, typename SampleFn, typename Reducer>
 }
 
 } // namespace fink::mc
+
+// NOTE: Currently this function only forwards execution to the backend.
+// Parameter validation and benchmarking hooks may be added here later.

@@ -34,3 +34,8 @@ template <fink::instruments::european_option_like Option>
     };
 }
 } // namespace fink::pricers
+
+// NOTE: Temporary CUDA-specific pricer path.
+// TODO: Integrate with fink::mc::run() so the pricer passes (cfg, instrument/model)
+// and the backend is selected in the MC layer.
+// TODO: Replace european_gbm_call_params with a generic instrument/model view.
